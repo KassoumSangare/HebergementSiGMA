@@ -1186,3 +1186,1047 @@ section {
     border-radius: 4px;
     transition: width 0.5s;
 }
+
+/* ====== */
+/* Serveur dédié libre */
+/* ====== */
+/* Configuration Générale */
+:root {
+    --primary-custom: #0d6efd;
+    --dark-bg: #0f141e;
+    --primary-light: rgba(13, 110, 253, 0.08);
+}
+
+.section-padding {
+    padding: 80px 0;
+}
+.title-main {
+    font-weight: 800;
+    font-size: 2.5rem;
+}
+.title-main span {
+    color: var(--primary-custom);
+}
+.title-line {
+    width: 60px;
+    height: 4px;
+    background: var(--primary-custom);
+    border-radius: 2px;
+}
+
+/* Hero Section */
+.hero-server {
+    min-height: 500px;
+    padding: 120px 0;
+    color: #fff;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+.badge-tech {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--primary-custom);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.root-access-tag {
+    font-family: "Courier New", monospace;
+    color: #2ecc71;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Server Cards */
+.server-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 25px;
+    border: 1px solid #eee;
+    transition: all 0.4s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.server-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.server-card.featured {
+    border: 2px solid var(--primary-custom);
+    transform: scale(1.03);
+}
+
+.server-label {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-custom);
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.server-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark-bg);
+}
+.server-price .val {
+    font-size: 2.8rem;
+    font-weight: 800;
+}
+.server-price .unit {
+    line-height: 1;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--primary-custom);
+}
+.server-price .unit span {
+    color: #888;
+    font-weight: 400;
+}
+
+.server-specs li {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Buttons */
+.btn-server-primary {
+    background: var(--primary-custom);
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-server-primary:hover {
+    background: #0b5ed7;
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+    color: #fff;
+}
+
+.btn-server-outline {
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #333;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.btn-server-outline:hover {
+    border-color: var(--primary-custom);
+    color: var(--primary-custom);
+}
+
+/* Feature Boxes */
+.icon-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.feature-box-linux:hover .icon-circle {
+    background: var(--primary-custom) !important;
+    color: #fff !important;
+    transform: scale(1.1);
+}
+
+/* Accordion */
+.linux-accordion .accordion-button:not(.collapsed) {
+    background-color: var(--primary-light);
+    color: var(--primary-custom);
+    box-shadow: none;
+}
+
+/* Animations */
+.animate-up {
+    animation: slideUp 0.8s ease forwards;
+    opacity: 0;
+}
+.delay-1 {
+    animation-delay: 0.2s;
+}
+.delay-2 {
+    animation-delay: 0.4s;
+}
+.delay-3 {
+    animation-delay: 0.6s;
+}
+
+.animate-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.6s ease;
+}
+.animate-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+/* ============================
+   WHY TICAFRIQUE SECTION
+============================ */
+
+.hosting-why-section {
+    padding: 100px 0;
+    background: #f8f9fb;
+}
+
+/* TITLE */
+.hosting-why-title h2 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.hosting-why-title h2 span {
+    color: #0061ff;
+}
+
+.hosting-why-title p {
+    max-width: 680px;
+    margin: 0 auto 60px;
+    color: #6c757d;
+    font-size: 1.05rem;
+}
+
+/* TABS */
+.hosting-why-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hosting-why-tabs .nav-link {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px 22px;
+    text-align: left;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.hosting-why-tabs .nav-link h5 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #212529;
+}
+
+.hosting-why-tabs .nav-link span {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.hosting-why-tabs .nav-link.active {
+    background: linear-gradient(135deg, #0061ff, #60efff);
+    color: #fff;
+    border: none;
+}
+
+.hosting-why-tabs .nav-link.active h5,
+.hosting-why-tabs .nav-link.active span {
+    color: #fff;
+}
+
+.hosting-why-tabs .nav-link:hover {
+    transform: translateY(-3px);
+}
+
+/* CONTENT */
+.hosting-why-content {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+/* IMAGE */
+.why-image {
+    text-align: center;
+}
+
+.why-image img {
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* RESPONSIVE */
+@media (max-width: 991px) {
+    .hosting-why-content {
+        padding: 20px;
+    }
+}
+
+/* ====== */
+/* end Serveur dédié libre */
+/* ====== */
+
+/* vps */
+:root {
+    --vps-blue: #0d6efd;
+    --vps-dark: #0a0e17;
+    --vps-light: #f4f7fa;
+    --vps-gradient: linear-gradient(135deg, #0d6efd 0%, #00d2ff 100%);
+}
+
+/* Hero Section */
+.vps-hero {
+    min-height: 550px;
+    padding: 100px 0;
+    display: flex;
+    align-items: center;
+    color: white;
+    background-size: cover;
+    background-position: center;
+}
+
+.tech-tag {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 25px;
+    border-radius: 50px;
+    display: inline-block;
+    font-weight: 600;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+.vps-hero h1 {
+    font-size: 3.8rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+.vps-hero h1 span {
+    color: #00d2ff;
+}
+.vps-hero p {
+    font-size: 1.25rem;
+    margin: 25px 0 40px;
+    opacity: 0.9;
+}
+
+/* Pricing Cards */
+.vps-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 45px 30px;
+    text-align: center;
+    border: 1px solid #eee;
+    transition: all 0.4s ease;
+    position: relative;
+    height: 100%;
+}
+
+.vps-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+}
+
+.vps-card.featured {
+    border: 2px solid var(--vps-blue);
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+.badge-featured {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--vps-gradient);
+    color: white;
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.vps-card-top h4 {
+    font-weight: 700;
+    color: var(--vps-dark);
+    margin-bottom: 20px;
+}
+
+.vps-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.price-val {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--vps-dark);
+}
+.currency-period {
+    font-size: 0.75rem;
+    text-align: left;
+    margin-left: 10px;
+    line-height: 1.2;
+    font-weight: 600;
+    color: var(--vps-blue);
+}
+
+.vps-specs-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 35px;
+    text-align: left;
+}
+.vps-specs-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #f8f9fa;
+    color: #555;
+    font-size: 0.95rem;
+}
+.vps-specs-list li i {
+    color: var(--vps-blue);
+    margin-right: 12px;
+    font-size: 0.8rem;
+}
+
+/* Buttons */
+.btn-vps-primary {
+    background: var(--vps-gradient);
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.btn-vps-outline {
+    background: transparent;
+    border: 2px solid #eee;
+    color: var(--vps-dark);
+    padding: 12px 30px;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.btn-vps-outline:hover {
+    border-color: var(--vps-blue);
+    color: var(--vps-blue);
+}
+
+/* Feature Cards */
+.vps-feature-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    transition: 0.3s;
+    height: 100%;
+}
+
+.vps-feature-card:hover {
+    background: var(--vps-dark);
+    color: white;
+}
+.vps-feature-card i {
+    font-size: 2.5rem;
+    color: var(--vps-blue);
+    margin-bottom: 25px;
+    display: block;
+}
+.vps-feature-card h5 {
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* Accordion */
+.vps-accordion .accordion-item {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+.vps-accordion .accordion-button {
+    font-weight: 600;
+    padding: 20px;
+}
+.vps-accordion .accordion-button:not(.collapsed) {
+    background: #f0f7ff;
+    color: var(--vps-blue);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .vps-hero h1 {
+        font-size: 2.5rem;
+    }
+    .vps-card.featured {
+        transform: scale(1);
+        margin: 30px 0;
+    }
+}
+
+/* ============================
+   WHY VPS TICAFRIQUE
+============================ */
+
+.hosting-why-vps-section {
+    padding: 100px 0;
+    background: #f7f9fc;
+}
+
+/* TITRE */
+.hosting-why-title h2 {
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.hosting-why-title h2 span {
+    color: #0061ff;
+}
+
+.hosting-why-title p {
+    max-width: 700px;
+    margin: 0 auto 60px;
+    color: #6c757d;
+    font-size: 1.05rem;
+}
+
+/* TABS */
+.hosting-why-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hosting-why-tabs .nav-link {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px 22px;
+    text-align: left;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all .3s ease;
+}
+
+.hosting-why-tabs .nav-link h5 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #212529;
+}
+
+.hosting-why-tabs .nav-link span {
+    font-size: .9rem;
+    color: #6c757d;
+}
+
+.hosting-why-tabs .nav-link.active {
+    background: linear-gradient(135deg, #0061ff, #60efff);
+    color: #fff;
+    border: none;
+}
+
+.hosting-why-tabs .nav-link.active h5,
+.hosting-why-tabs .nav-link.active span {
+    color: #fff;
+}
+
+.hosting-why-tabs .nav-link:hover {
+    transform: translateY(-3px);
+}
+
+/* CONTENU */
+.hosting-why-content {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.08);
+}
+
+/* IMAGE */
+.why-image {
+    text-align: center;
+}
+
+.why-image img {
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.15);
+}
+
+/* RESPONSIVE */
+@media (max-width: 991px) {
+    .hosting-why-content {
+        padding: 20px;
+    }
+}
+
+
+/* end vps */
+
+/* infogerence */
+:root {
+    --primary-blue: #0d6efd;
+    --dark-navy: #0a0e17;
+    --text-gray: #5e6d77;
+    --soft-bg: #f8fafc;
+}
+
+/* Hero Optimization */
+.info-hero {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    padding: 80px 0;
+}
+
+.status-badge {
+    background: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    padding: 6px 15px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.info-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+}
+.info-hero h1 span {
+    color: var(--primary-blue);
+}
+.info-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 20px 0 30px;
+}
+
+/* Pricing Cards */
+.info-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px 30px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+}
+
+.info-card.featured {
+    border: 2px solid var(--primary-blue);
+    background: #fff;
+    z-index: 2;
+}
+
+.featured-label {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-blue);
+    color: #fff;
+    padding: 4px 20px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.card-header-plan h4 {
+    color: var(--dark-navy);
+    font-weight: 700;
+}
+
+.info-price {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 25px 0;
+    color: var(--dark-navy);
+}
+
+.info-price .currency {
+    font-size: 1rem;
+    vertical-align: top;
+    margin-right: 5px;
+    color: var(--primary-blue);
+}
+.info-price .period {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    font-weight: 400;
+}
+
+.specs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px;
+    text-align: left;
+}
+.specs-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f1f1;
+    color: var(--text-gray);
+    font-size: 0.95rem;
+}
+.specs-list li i {
+    color: #2ecc71;
+    margin-right: 10px;
+}
+
+/* Feature Boxes */
+.info-feature-box {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.icon-circle {
+    width: 70px;
+    height: 70px;
+    background: rgba(13, 110, 253, 0.08);
+    color: var(--primary-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.8rem;
+}
+
+/* Accordion Customization */
+.custom-accordion .accordion-item {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.custom-accordion .accordion-button {
+    font-weight: 600;
+    padding: 20px;
+}
+.custom-accordion .accordion-button:not(.collapsed) {
+    background: rgba(13, 110, 253, 0.05);
+    color: var(--primary-blue);
+}
+
+/* Buttons */
+.btn-primary-custom {
+    background: var(--primary-blue);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: 0.3s;
+    border: none;
+}
+
+.btn-primary-custom:hover {
+    background: #0b5ed7;
+    transform: scale(1.02);
+}
+
+/* Animations & Responsive */
+@media (max-width: 991px) {
+    .info-hero {
+        text-align: center;
+        padding: 60px 0;
+    }
+    .info-hero h1 {
+        font-size: 2.5rem;
+    }
+    .info-card.featured {
+        transform: scale(1);
+    }
+}
+
+/* ============================
+   WHY MANAGED SERVERS
+============================ */
+
+.hosting-why-managed-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #f7f9fc, #eef2f7);
+}
+
+/* TITRE */
+.hosting-why-title h2 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.hosting-why-title h2 span {
+    color: #0061ff;
+}
+
+.hosting-why-title p {
+    max-width: 760px;
+    margin: 0 auto 60px;
+    color: #6c757d;
+    font-size: 1.05rem;
+}
+
+/* TABS (réutilisables avec VPS & Dédié) */
+.hosting-why-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hosting-why-tabs .nav-link {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px 24px;
+    text-align: left;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all .3s ease;
+}
+
+.hosting-why-tabs .nav-link h5 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #212529;
+}
+
+.hosting-why-tabs .nav-link span {
+    font-size: .9rem;
+    color: #6c757d;
+}
+
+.hosting-why-tabs .nav-link.active {
+    background: linear-gradient(135deg, #0061ff, #60efff);
+    color: #ffffff;
+    border: none;
+}
+
+.hosting-why-tabs .nav-link.active h5,
+.hosting-why-tabs .nav-link.active span {
+    color: #ffffff;
+}
+
+.hosting-why-tabs .nav-link:hover {
+    transform: translateY(-3px);
+}
+
+/* CONTENU */
+.hosting-why-content {
+    background: #ffffff;
+    border-radius: 26px;
+    padding: 32px;
+    box-shadow: 0 25px 60px rgba(0,0,0,.08);
+}
+
+/* IMAGE */
+.why-image {
+    text-align: center;
+}
+
+.why-image img {
+    max-width: 100%;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.15);
+}
+
+/* RESPONSIVE */
+@media (max-width: 991px) {
+    .hosting-why-content {
+        padding: 22px;
+    }
+}
+
+
+/* end infogerence */
+
+/* index serveur dédié */
+/* --- HERO --- */
+.hosting-hero {
+    padding: 120px 0;
+    background-size: cover;
+    background-position: center;
+}
+.hosting-hero h1 span {
+    color: #0d6efd;
+}
+.badge-tech {
+    background: rgba(13, 110, 253, 0.2);
+    border: 1px solid #0d6efd;
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- SECTION SOLUTIONS --- */
+.solutions-section {
+    position: relative;
+    padding: 100px 0;
+    background-size: cover;
+    background-position: center;
+}
+.section-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 16, 32, 0.785); /* Fond sombre pour contraste */
+}
+.title-bar {
+    width: 50px;
+    height: 3px;
+    background: #0d6efd;
+    margin-top: 15px;
+}
+
+/* --- CARTES : TOUTES BLANCHES POUR LA VISIBILITÉ --- */
+.hosting-card-clean {
+    background: #ffffff; /* Toutes les cartes sont blanches maintenant */
+    border-radius: 20px;
+    padding: 40px 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    transition: 0.3s ease;
+    border: 1px solid transparent;
+}
+.hosting-card-clean:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.hosting-card-clean.featured {
+    border: 2px solid #0d6efd;
+}
+
+.icon-wrap {
+    width: 70px;
+    height: 70px;
+    background: #f0f7ff;
+    color: #0d6efd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    font-size: 1.8rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 25px 0;
+    text-align: left;
+}
+.feature-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 0.9rem;
+    color: #444;
+}
+.feature-list li i {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #2ecc71;
+}
+
+.btn-action {
+    background: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+}
+.btn-action:hover {
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+.top-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0d6efd;
+    color: #fff;
+    padding: 4px 15px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* --- ANIMATIONS --- */
+.host-animate,
+.host-animate-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.6s ease;
+}
+.host-animate.visible,
+.host-animate-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.delay-1 {
+    transition-delay: 0.2s;
+}
+.delay-2 {
+    transition-delay: 0.4s;
+}
+.delay-3 {
+    transition-delay: 0.6s;
+}
+/* end index serveur dédié */

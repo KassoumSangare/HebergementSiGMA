@@ -1,46 +1,84 @@
 <?php
 
-namespace App\Http\Controllers\frontend;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+
 
 class HebergementController extends Controller
 {
-    //hebergement linux
-    public function hebergement_linux()
+    /**
+     * Hébergement mutualisé Linux
+     */
+    public function hebergementLinux()
     {
         return view('frontend.hebergements.mutualise.linux.hebergement_linux');
     }
 
-    //hebergement cloud
-    public function hebergement_cloud()
+    /**
+     * Hébergement mutualisé Cloud
+     */
+    public function hebergementCloud()
     {
         return view('frontend.hebergements.mutualise.cloud.hebergement_cloud');
     }
 
-    // hebergement windows
-    public function hebergement_windows()
+    /**
+     * Hébergement mutualisé Windows
+     */
+    public function hebergementWindows()
     {
         return view('frontend.hebergements.mutualise.windows.hebergment_windows');
     }
 
-    // index hebergement mutualise
-    public function hebergement_mutualise()
+    /**
+     * Page index hébergement mutualisé
+     */
+    public function hebergementMutualise()
     {
         return view('frontend.hebergements.mutualise.index');
     }
 
-    // commender hebergement
-    public function commander_hebergement()
+    /**
+     * Commander un hébergement
+     */
+    public function commanderHebergement()
     {
         return view('frontend.hebergements.mutualise.commander');
     }
 
-
+    /**
+     * Inscription hébergement cloud
+     */
     public function inscription()
     {
         return view('frontend.hebergements.mutualise.cloud.inscription');
     }
 
-}
+    /**
+     * Serveur infogérence
+     */    public function hebergementServeurInfogerence()
+    {
+        return view('frontend.hebergements.dedies.serveur_dedie_en_infogerance');
+    }
+
+    /**
+     * Serveur dédié libre
+     */    public function hebergementServeurDedieLibre()
+    {   
+        return view('frontend.hebergements.dedies.serveur_dedie_libre');
+}    
+
+
+    /**
+     * Serveur dédié VPS
+     */    public function hebergementServeurDedieVPS()
+    {   
+        return view('frontend.hebergements.dedies.serveur_virtuel_prive');
+    }   
+    
+    public function index_serveur_dedie()
+    {
+        return view('frontend.hebergements.dedies.index_serveur_dedie');
+    }
+} 

@@ -17,10 +17,38 @@
 <!-- ================= HEADER ================= -->
 <header class="header">
     <div class="container header-content">
+        <style>
+            /* CONTENEUR DU LOGO */
+            .logo {
+                display: flex;
+                /* pour centrer facilement si besoin */
+                align-items: center;
+                /* centre verticalement */
+                justify-content: flex-start;
+                /* change à center si tu veux centrer horizontalement */
+                padding: 10px 0;
+                /* espace autour du logo */
+            }
+
+            /* IMAGE DU LOGO */
+            .logo img {
+                height: 40px;
+                /* ajuste la taille du logo */
+                width: auto;
+                /* conserve les proportions */
+                display: block;
+            }
+        </style>
+
+        <!-- HTML -->
+        <div class="logo">
+            <img src="{{ asset('assets/images/logoweb.jpg') }}" alt="Logo du site">
+        </div>
+
 
         <!-- Logo -->
         <div class="logo">
-            Tic<span>@</span>frica
+            <img src="{{ asset('assets/images/logoweb.png') }}" alt="" height="20">
         </div>
 
         <!-- Burger -->
@@ -48,8 +76,8 @@
                     <a href="#">Hébergement <i class="bi bi-database"></i> <i class="fa fa-angle-down"></i></a>
                     <ul class="dropdown">
                         <li><a href="{{ route('hebergement.mutualise') }}">Hébergement Mutualisé</a></li>
-                        <li><a href="#">Hébergement WordPress</a></li>
-                        <li><a href="#">Hébergement Windows</a></li>
+                        <li><a href="{{ route('hebergement.index_serveur_dedie') }}">Serveurs dédiés</a></li>
+                        <li class="d-none"><a href="#">Hébergement Windows</a></li>
                         <li><a href="#">Reseller Hosting</a></li>
                     </ul>
                 </li>

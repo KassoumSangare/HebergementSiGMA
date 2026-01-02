@@ -139,13 +139,27 @@ Route::prefix('domaines')->group(function () {
         ->name('domaine.ajax.renew');
 });
 
+Route::prefix('hebergements')
+    ->controller(HebergementController::class)
+    ->group(function () {
 
-Route::prefix('hebergements')->controller(HebergementController::class)->group(function () {
-    Route::get('mutualise', 'hebergement_mutualise')->name('hebergement.mutualise');
-    Route::get('cloud', 'hebergement_cloud')->name('hebergement.cloud');
-    Route::get('windows', 'hebergement_windows')->name('hebergement.windows');
-    Route::get('linux', 'hebergement_linux')->name('hebergement.linux');
-    Route::get('commander', 'commander_hebergement')->name('hebergement.commander');
-    // inscription hebergement cloud
-    Route::get('inscription', 'inscription')->name('hebergement.inscription');
-});
+        Route::get('mutualise', 'hebergementMutualise')->name('hebergement.mutualise');
+        Route::get('cloud', 'hebergementCloud')->name('hebergement.cloud');
+        Route::get('windows', 'hebergementWindows')->name('hebergement.windows');
+        Route::get('linux', 'hebergementLinux')->name('hebergement.linux');
+        Route::get('commander', 'commanderHebergement')->name('hebergement.commander');
+
+        Route::get('inscription', 'inscription')->name('hebergement.inscription');
+
+        Route::get('serveur_infogerence', 'hebergementServeurInfogerence')
+            ->name('hebergement.serveur_infogerence');
+
+        Route::get('serveur_dedie_libre', 'hebergementServeurDedieLibre')
+            ->name('hebergement.serveur_dedie_libre');
+
+        Route::get('serveur_dedie', 'hebergementServeurDedieVPS')
+            ->name('hebergement.serveur_dedie_vps');
+
+        Route::get('index_serveur_dedie', 'index_serveur_dedie')
+            ->name('hebergement.index_serveur_dedie');
+    });

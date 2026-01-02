@@ -31,7 +31,8 @@
                             <div class="card-body">
                                 <h5>{{ $plan['title'] }}</h5>
                                 <p class="card-price">{{ $plan['price'] }}</p>
-                                <a href="{{ route('hebergement.inscription') }}" class="btn {{ $plan['btn'] }}">Inscrivez-vous</a>
+                                <a href="{{ route('hebergement.inscription') }}"
+                                    class="btn {{ $plan['btn'] }}">Inscrivez-vous</a>
                             </div>
                         </div>
                     </div>
@@ -68,7 +69,53 @@
     </section>
 
     <!-- ===================== CATÉGORIES CLOUD ===================== -->
-    <section class="section">
+    {{-- <style>
+        .section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* IMAGE DE FOND VIA HTML */
+        .section-bg-image {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 650px;
+            max-width: 100%;
+            opacity: 0.12;
+            /* ⬅ augmente la visibilité */
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* LE CONTENEUR NE CACHE PLUS L’IMAGE */
+        .section>.container {
+            position: relative;
+            z-index: 1;
+            background: transparent !important;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 991px) {
+            .section-bg-image {
+                width: 480px;
+                opacity: 0.1;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-bg-image {
+                display: none;
+            }
+        }
+        #caracteristiques {
+            background-color: transparent !important;
+        }
+    </style>
+    <section class="section" id="caracteristiques">
+
+        <img src="{{ asset('assets/images/server.png') }}" alt="" class="section-bg-image" aria-hidden="true">
+
         <div class="container">
 
             <div class="section-title text-center">
@@ -106,7 +153,107 @@
             </div>
 
         </div>
+    </section> --}}
+
+    <style>
+        /* SECTION PRINCIPALE */
+        .section {
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            /* aucun fond blanc */
+        }
+
+        /* IMAGE DE FOND VIA HTML */
+        .section-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* couvre toute la section sans déformation */
+            opacity: 0.15;
+            /* ajustable pour visibilité */
+            z-index: 0;
+            pointer-events: none;
+            /* clics passent à travers */
+        }
+
+        /* CONTENU AU-DESSUS DE L'IMAGE */
+        .section>.container {
+            position: relative;
+            z-index: 1;
+            background: transparent !important;
+        }
+
+        /* TITRE ET TEXTE */
+        .section-title {
+            margin-bottom: 40px;
+        }
+
+        /* FEATURE BOX */
+        .feature-box img {
+            max-width: 80px;
+            margin-bottom: 15px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 991px) {
+            .section-bg-image {
+                opacity: 0.1;
+                object-position: center top;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-bg-image {
+                display: none;
+            }
+        }
+    </style>
+
+    <section class="section" id="caracteristiques">
+        <!-- IMAGE DE FOND -->
+        <img src="{{ asset('assets/images/server.png') }}" alt="" class="section-bg-image" aria-hidden="true">
+
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>Caractéristiques de nos <span>hébergements cloud</span></h3>
+                <p class="last text-muted">
+                    Des solutions performantes, sécurisées et accessibles partout.
+                </p>
+            </div>
+
+            @php
+                $featuresCloud = [
+                    ['icon' => 'cpanel.png', 'title' => 'CPANEL convivial', 'desc' => 'Gestion simple et efficace.'],
+                    [
+                        'icon' => 'disponibilite.png',
+                        'title' => 'Disponibilité 99.9%',
+                        'desc' => 'Haute fiabilité garantie.',
+                    ],
+                    ['icon' => 'mondial.png', 'title' => 'Accès mondial', 'desc' => 'Travaillez où que vous soyez.'],
+                    ['icon' => 'support.png', 'title' => 'Support 24h/7', 'desc' => 'Assistance permanente.'],
+                    ['icon' => 'application.png', 'title' => 'Multi-applications', 'desc' => 'CMS, PHP, frameworks.'],
+                    ['icon' => 'serveur.png', 'title' => 'Serveurs sécurisés', 'desc' => 'Architecture robuste.'],
+                ];
+            @endphp
+
+            <div class="row">
+                @foreach ($featuresCloud as $feature)
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-box text-center h-100">
+                            <img src="{{ asset('assets/images/' . $feature['icon']) }}" alt="{{ $feature['title'] }}">
+                            <h5>{{ $feature['title'] }}</h5>
+                            <p>{{ $feature['desc'] }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
     </section>
+
 
     <!-- ===================== POURQUOI TICAFRIQUE ===================== -->
     <section class="section bg-light">

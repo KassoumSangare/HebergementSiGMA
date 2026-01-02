@@ -56,7 +56,9 @@
             </div>
 
             <div class="footer-col">
-                <h4>Tic<span>@</span>frica</h4>
+              <div class="logo">
+            <img src="{{ asset('assets/images/logoweb.jpg') }}" alt="Logo du site">
+        </div>
 
                 <ul class="footer-contact">
                     <li><i class="fa fa-map-marker"></i> Cocody-Angré, Belles Fleurs 3</li>
