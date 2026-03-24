@@ -387,9 +387,9 @@
           </ul>
         </li>
 
-        <li class="tic-nav__item" role="none">
+        <!-- <li class="tic-nav__item" role="none">
           <a href="#" class="tic-nav__link" role="menuitem">Contact</a>
-        </li>
+        </li> -->
 
       </ul>
     </nav>

@@ -807,7 +807,7 @@
         <div class="cta-banner__title">Prêt à lancer votre site web ?</div>
         <div class="cta-banner__sub">Démarrez dès aujourd'hui avec un plan adapté à votre budget.</div>
       </div>
-      <a href="{{ url('webcompte.php') }}" class="cta-banner__btn">
+      <a href="{{ route('hebergement.inscription') }}" class="cta-banner__btn">
         Choisir mon hébergement →
       </a>
     </div>
