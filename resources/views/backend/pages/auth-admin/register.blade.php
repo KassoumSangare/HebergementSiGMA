@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="p-2 mt-4">
                                     <form class="needs-validation" novalidate method="POST"
-                                        action="{{ route('register') }}" enctype="multipart/form-data">
+                                        action="{{ route('admin-register.store') }}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="useremail" class="form-label">Email <span
@@ -158,7 +158,7 @@
                         <!-- end card -->
 
                         <div class="mt-4 text-center">
-                            <p class="mb-0">Already have an account ? <a href="{{ route('login') }}"
+                            <p class="mb-0">Already have an account ? <a href="{{ route('admin.login') }}"
                                     class="fw-semibold text-primary text-decoration-underline"> Signin </a> </p>
                         </div>
 

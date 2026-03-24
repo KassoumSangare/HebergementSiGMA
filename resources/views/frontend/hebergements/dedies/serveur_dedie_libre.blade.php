@@ -17,7 +17,7 @@
             <div class="hero-btns animate-up delay-3 mt-4">
                 <a href="#offres" class="btn btn-server-primary">Voir les configurations</a>
                 <span class="root-access-tag ms-lg-3 d-block d-lg-inline-block mt-3 mt-lg-0">
-                    <i class="bi bi-terminal-fill me-2"></i><a href="{{ route('hebergement.commander') }}">Commander</a>
+                    <i class="bi bi-terminal-fill me-2"></i><a href="{{ route('hebergement.inscription') }}">Commander</a>
                 </span>
             </div>
         </div>
@@ -38,7 +38,7 @@
                         [
                             'name' => 'Standard',
                             'price' => '55.000',
-                            'link' => 'hebergement.commander',
+                            'link' => 'hebergement.inscription',
                             'features' => [
                                 ['icon' => 'bi-cpu', 'text' => '2 Cores / 4 Threads'],
                                 ['icon' => 'bi-hdd-fill', 'text' => '1 To HDD SATA'],
@@ -51,7 +51,7 @@
                         [
                             'name' => 'Business',
                             'price' => '75.000',
-                            'link' => 'hebergement.commander',
+                            'link' => 'hebergement.inscription',
                             'features' => [
                                 ['icon' => 'bi-cpu', 'text' => '4 Cores / 8 Threads'],
                                 ['icon' => 'bi-hdd-fill', 'text' => '1 To HDD SATA'],
@@ -65,7 +65,7 @@
                             'name' => 'Pro',
                             'price' => '90.000',
                             'featured' => true,
-                            'link' => 'hebergement.commander',
+                            'link' => 'hebergement.inscription',
                             'features' => [
                                 ['icon' => 'bi-cpu', 'text' => '4 Cores / 8 Threads'],
                                 ['icon' => 'bi-hdd-fill', 'text' => '1 To HDD SATA'],
@@ -78,7 +78,7 @@
                         [
                             'name' => 'Elite',
                             'price' => '110.000',
-                            'link' => 'hebergement.commander',
+                            'link' => 'hebergement.inscription',
                             'features' => [
                                 ['icon' => 'bi-cpu', 'text' => '4 Cores / 8 Threads'],
                                 ['icon' => 'bi-hdd-fill', 'text' => '1 To HDD SATA'],

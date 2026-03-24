@@ -36,16 +36,16 @@ i {
 /* =====================================================
    CONTAINER
 ===================================================== */
-.container {
+/* .container {
     max-width: 1200px;
     margin: auto;
     padding: 0 16px;
-}
+} */
 
 /* =====================================================
    TOP BAR
 ===================================================== */
-.topbar {
+/* .topbar {
     background: var(--dark);
     color: #e5e7eb;
     font-size: 13px;
@@ -74,29 +74,29 @@ i {
 
 .topbar-right a:hover {
     color: #ffffff;
-}
+} */
 
 /* =====================================================
    HEADER
 ===================================================== */
-.header {
+/* .header {
     background: var(--light);
     border-bottom: 1px solid #e5e7eb;
-    position: relative; /* IMPORTANT POUR MOBILE */
+    position: relative; 
     z-index: 1000;
-}
+} */
 
-.header-content {
+/* .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     min-height: 72px;
-}
+} */
 
 /* =====================================================
    LOGO
 ===================================================== */
-.logo {
+/* .logo {
     font-size: 26px;
     font-weight: 900;
     color: var(--primary);
@@ -105,24 +105,24 @@ i {
 
 .logo span {
     color: var(--secondary);
-}
+} */
 
 /* =====================================================
    MENU TOGGLE (BURGER)
 ===================================================== */
-.menu-toggle {
+/* .menu-toggle {
     display: none;
     background: none;
     border: none;
     font-size: 22px;
     cursor: pointer;
     color: var(--primary);
-}
+} */
 
 /* =====================================================
    NAVIGATION
 ===================================================== */
-.nav {
+/* .nav {
     display: flex;
 }
 
@@ -149,12 +149,12 @@ i {
 
 .menu > li > a:hover {
     color: var(--primary);
-}
+} */
 
 /* =====================================================
    DROPDOWN
 ===================================================== */
-.dropdown {
+/* .dropdown {
     position: absolute;
     top: 120%;
     left: 0;
@@ -180,9 +180,9 @@ i {
 }
 
 /* Desktop hover */
-.has-dropdown:hover .dropdown {
+/* .has-dropdown:hover .dropdown {
     display: block;
-}
+} */ */
 
 /* =====================================================
    RESPONSIVE (MOBILE & TABLET)

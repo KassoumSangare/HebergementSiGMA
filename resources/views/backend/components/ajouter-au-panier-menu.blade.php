@@ -174,7 +174,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css
             // Envoyer les données au backend via AJAX
             $.ajax({
                 type: "POST",
-                url: "{{ route('vente.menu.store') }}",
+                url: "{{ route('commande.service.store') }}",
                 data: {
                     cart: panier,
                     montantRecu: montantRecu,
@@ -190,7 +190,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css
                         text: response.message,
                         icon: 'success',
                     }).then(() => {
-                        window.location.href = '{{ route('vente.show', ':idVente') }}'
+                        window.location.href = '{{ route('commande.service.index') }}'
                             .replace(':idVente', response.idVente);
                     });
                 },

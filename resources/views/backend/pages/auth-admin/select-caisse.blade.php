@@ -71,7 +71,7 @@
                                     <p class="text-muted">Veuillez sélectionner une caisse pour continuer</p>
                                 </div>
                                 <div class="p-2 mt-4">
-                                    <form action="{{ route('caisse.select.post') }}" method="post" class="needs-validation"
+                                    <form action="{{ route('admin.login') }}" method="post" class="needs-validation"
                                         novalidate>
                                         @csrf
                                         <div class="mb-3">

@@ -1,0 +1,22 @@
+routes_in_blade: 51
+routes_defined: 53
+
+missing in routes:
+caisse.select.post
+login
+password.email
+password.update
+register
+vente.menu.store
+vente.show
+
+extra routes not used in blades:
+admin-register.delete
+domaine.ajax.renew
+domaine.ajax.search
+domaine.ajax.transfer
+frontend.index
+module.delete
+permission.delete
+role.delete
+storage.local

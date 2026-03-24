@@ -52,7 +52,7 @@
                                     Enter your email and instructions will be sent to you!
                                 </div>
                                 <div class="p-2">
-                                    <form class="form-horizontal" method="POST" action="{{ route('password.update') }}">
+                                    <form class="form-horizontal" method="POST" action="{{ route('admin-register.new-password') }}">
                                         @csrf
                                         <input type="hidden" name="token" value="{{ $token }}">
                                         <div class="mb-3">
@@ -92,7 +92,7 @@
                         <!-- end card -->
 
                         <div class="mt-4 text-center">
-                            <p class="mb-0">Wait, I remember my password... <a href="auth-signin-basic"
+                            <p class="mb-0">Wait, I remember my password... <a href="{{ route('admin.login') }}"
                                     class="fw-semibold text-primary text-decoration-underline"> Click here </a> </p>
                         </div>
 

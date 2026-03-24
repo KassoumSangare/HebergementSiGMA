@@ -59,7 +59,7 @@
                                             {{ session('status') }}
                                         </div>
                                     @endif
-                                    <form class="form-horizontal" method="POST" action="{{ route('password.email') }}">
+                                    <form class="form-horizontal" method="POST" action="{{ route('admin.login') }}">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="useremail" class="form-label">Email</label>
@@ -87,7 +87,7 @@
                         <!-- end card -->
 
                         <div class="mt-4 text-center">
-                            <p class="mb-0">Wait, I remember my password... <a href="{{ route('login') }}"
+                            <p class="mb-0">Wait, I remember my password... <a href="{{ route('admin.login') }}"
                                     class="fw-semibold text-primary text-decoration-underline"> Click here </a> </p>
                         </div>
 

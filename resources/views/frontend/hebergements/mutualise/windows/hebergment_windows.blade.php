@@ -145,7 +145,7 @@
                                         <li class="py-2 border-bottom">{{ $feat }}</li>
                                     @endforeach
                                     <li class="pt-2">
-                                        <a href="{{ route('hebergement.commander') }}" class="btn btn-primary btn-block">Commandez</a>
+                                        <a href="{{ route('hebergement.inscription') }}" class="btn btn-primary btn-block">Commandez</a>
                                     </li>
                                 </ul>
                             </div>
