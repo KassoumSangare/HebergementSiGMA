@@ -251,6 +251,8 @@
                border-radius: 14px; display: flex; align-items: center; justify-content: center;
                margin-bottom: 20px; }
   .why__icon svg { color: var(--orange); }
+  /* ── Icônes réelles via <img> ── */
+  .why__icon img { width: 28px; height: 28px; object-fit: contain; }
   .why__title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
   .why__desc  { color: var(--muted); font-size: .9rem; line-height: 1.65; }
 
@@ -259,12 +261,79 @@
   .cms__grid { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 36px; }
   .cms__logo {
     background: rgba(255,255,255,.06); border: 1px solid var(--border-dk);
-    border-radius: 14px; padding: 18px 24px; display: flex; align-items: center;
+    border-radius: 14px; padding: 14px 20px; display: flex; align-items: center;
     gap: 10px; color: rgba(255,255,255,.65); font-weight: 600; font-size: .9rem;
     transition: var(--transition); cursor: default;
   }
   .cms__logo:hover { background: rgba(67,112,170,.15); border-color: rgba(191,207,221,.3); color: white; }
-  .cms__logo svg { opacity: .8; }
+  /* Logos CMS réels */
+  .cms__logo img { width: 40px; height: 40px; object-fit: contain; filter: brightness(0) invert(1); opacity: 1; transition: opacity var(--transition); }
+  .cms__logo:hover img { opacity: 1; filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(255,255,255,.4)); }
+
+  /* ── CMS visual side ── */
+  .cms__visual {
+    position: relative; border-radius: 20px; overflow: hidden;
+    height: 340px;
+  }
+  .cms__visual img { width: 100%; height: 100%; object-fit: cover; display: block;
+                     filter: brightness(.7); }
+  .cms__visual-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(18,36,87,.7) 0%, transparent 60%);
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 28px;
+  }
+  .cms__visual-overlay span { color: var(--pale); font-size: .8rem; text-transform: uppercase;
+                               letter-spacing: .1em; font-weight: 600; }
+  .cms__visual-overlay p { color: white; font-family: var(--font-display); font-size: 1.3rem;
+                            font-weight: 700; margin-top: 6px; line-height: 1.3; }
+
+  /* ── Split feature section (revendeur / mutualisé) ── */
+  .split-section { background: var(--white); }
+  .split-section__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .split-card {
+    position: relative; overflow: hidden; min-height: 400px;
+    display: flex; align-items: flex-end;
+  }
+  .split-card img { position: absolute; inset: 0; width: 100%; height: 100%;
+                    object-fit: cover; transition: transform .6s ease; }
+  .split-card:hover img { transform: scale(1.04); }
+  .split-card__overlay {
+    position: relative; z-index: 2; width: 100%;
+    background: linear-gradient(to top, rgba(18,36,87,.9) 0%, transparent 100%);
+    padding: 36px 32px;
+  }
+  .split-card__tag { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em;
+                     font-weight: 700; color: var(--pale); margin-bottom: 8px; display: block; }
+  .split-card__title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
+                       color: white; margin-bottom: 10px; }
+  .split-card__desc  { color: rgba(255,255,255,.65); font-size: .88rem; line-height: 1.6;
+                       margin-bottom: 20px; }
+  .split-card__btn { display: inline-flex; align-items: center; gap: 6px;
+                     background: var(--orange); color: white; padding: 10px 20px;
+                     border-radius: 100px; font-size: .85rem; font-weight: 600;
+                     transition: var(--transition); }
+  .split-card__btn:hover { background: var(--pale); color: var(--navy); }
+
+  /* ── Hero bg image overlay ── */
+  .hero__bg-img {
+    position: absolute; inset: 0; z-index: 0;
+    background-size: cover; background-position: center;
+    opacity: .12; /* subtle — ne pas écraser le contenu */
+    pointer-events: none;
+  }
+
+  /* ── Domain search image column ── */
+  .domain-img-wrap {
+    border-radius: 16px; overflow: hidden; height: 100%; min-height: 200px;
+    position: relative;
+  }
+  .domain-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block;
+                         filter: brightness(.65); }
+  .domain-img-wrap__label {
+    position: absolute; bottom: 20px; left: 20px;
+    background: var(--orange); color: white; font-weight: 700; font-size: .85rem;
+    padding: 6px 14px; border-radius: 100px;
+  }
 
   /* ── FAQ ── */
   .faq__list { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; }
@@ -314,18 +383,23 @@
     .domain-search__inner { grid-template-columns: 1fr; padding: 36px 28px; }
     .cta-banner { flex-direction: column; text-align: center; padding: 40px 28px; }
     .features-strip__list { justify-content: flex-start; }
+    .split-section__grid { grid-template-columns: 1fr; }
+    .cms__visual { height: 240px; }
   }
   @media (max-width: 600px) {
     .why__grid { grid-template-columns: 1fr; }
     .stats__grid { grid-template-columns: 1fr 1fr; }
     .tic-section { padding: 60px 0; }
+    .split-card { min-height: 300px; }
   }
 </style>
 
 {{-- ================================================================
      HERO
 ================================================================ --}}
-<section class="hero">
+<section class="hero" style="background-image: url('{{ asset('assets/images/hebergement.jpg') }}'); background-size: cover; background-position: center;">
+  {{-- Overlay to maintain dark navy tone over the photo --}}
+  <div style="position:absolute;inset:0;background:rgba(18,36,87,.82);z-index:0;pointer-events:none;"></div>
   <div class="tic-container">
     <div class="hero__grid">
 
@@ -357,9 +431,10 @@
         <div class="hero__trust">
           {{-- Placeholder avatars with initials --}}
           <div class="hero__avatars" aria-hidden="true">
-            <img src="https://ui-avatars.com/api/?name=K+D&background=4370aa&color=fff&size=36" alt="">
-            <img src="https://ui-avatars.com/api/?name=A+M&background=2a4d84&color=fff&size=36" alt="">
-            <img src="https://ui-avatars.com/api/?name=S+B&background=122457&color=fff&size=36" alt="">
+            {{-- Placez vos vraies photos clients dans public/assets/images/ --}}
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%234370aa'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='50' fill='white' font-family='Arial'%3EA%3C/text%3E%3C/svg%3E" alt="Client satisfait 1" width="36" height="36" loading="lazy">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%232a4d84'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='50' fill='white' font-family='Arial'%3EB%3C/text%3E%3C/svg%3E" alt="Client satisfait 2" width="36" height="36" loading="lazy">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2384a1c0'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='50' fill='white' font-family='Arial'%3EC%3C/text%3E%3C/svg%3E" alt="Client satisfait 3" width="36" height="36" loading="lazy">
           </div>
           <div class="hero__trust-text">
             <strong>+ 860 clients satisfaits</strong>
@@ -407,9 +482,8 @@
               Remboursé sous 30 jours
             </div>
           </div>
-           
 
-            <a href="{{ route('hebergement.commander') }}" class="tic-btn tic-btn--primary" style="width:100%;justify-content:center;" id="hero-cta">
+          <a href="{{ route('hebergement.commander') }}" class="tic-btn tic-btn--primary" style="width:100%;justify-content:center;" id="hero-cta">
             Commander ce pack
           </a>
         </div>
@@ -483,6 +557,11 @@
 
       {{-- Right: price list --}}
       <div class="domain-search__prices">
+        {{-- Image bannière domaine --}}
+        <div class="domain-img-wrap" style="margin-bottom:16px;height:140px;">
+          <img src="{{ asset('assets/images/domaine.png') }}" alt="Nom de domaine" loading="lazy">
+          <span class="domain-img-wrap__label">Transfert disponible</span>
+        </div>
         <div class="domain-price-card">
           <span class="domain-price-card__ext">.ci</span>
           <span><span class="domain-price-card__price">8 000 FCFA</span><span class="domain-price-card__yr">/an</span></span>
@@ -619,7 +698,7 @@
     {{-- Custom plan CTA --}}
     <div style="text-align:center;margin-top:36px;">
       <p style="color:var(--muted);font-size:.9rem;margin-bottom:14px;">Besoin d'un plan sur mesure pour votre infrastructure ?</p>
-      <a href="{{ route('hebergement.inscription') }}" class="tic-btn tic-btn--dark">
+      <a href="{{ route('hebergement.commander') }}" class="tic-btn tic-btn--dark">
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
         Contacter pour un plan personnalisé
       </a>
@@ -640,42 +719,42 @@
     <div class="why__grid">
       <div class="why__card">
         <div class="why__icon">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <img src="{{ asset('assets/images/chargement.png') }}" alt="Chargement rapide" loading="lazy">
         </div>
         <div class="why__title">Chargement ultra-rapide</div>
         <div class="why__desc">Serveurs SSD NVMe et réseau optimisé pour offrir des temps de réponse inférieurs à 200ms. Vos visiteurs ne quitteront plus votre site.</div>
       </div>
       <div class="why__card">
         <div class="why__icon">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <img src="{{ asset('assets/images/disponibilite.png') }}" alt="Sécurité" loading="lazy">
         </div>
         <div class="why__title">Sécurité renforcée</div>
         <div class="why__desc">SSL gratuit, pare-feu applicatif, protection DDoS et sauvegardes quotidiennes automatiques pour protéger vos données 24h/24.</div>
       </div>
       <div class="why__card">
         <div class="why__icon">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          <img src="{{ asset('assets/images/cpanel.png') }}" alt="cPanel" loading="lazy">
         </div>
         <div class="why__title">cPanel intuitif</div>
         <div class="why__desc">Gérez vos domaines, e-mails, bases de données et fichiers depuis un panneau de contrôle moderne, accessible en quelques clics.</div>
       </div>
       <div class="why__card">
         <div class="why__icon">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <img src="{{ asset('assets/images/support.png') }}" alt="Support" loading="lazy">
         </div>
         <div class="why__title">Support 24h/7j</div>
         <div class="why__desc">Notre équipe technique dédiée répond à chaque sollicitation avec une personne dédiée et des solutions personnalisées. Proactivité garantie.</div>
       </div>
       <div class="why__card">
         <div class="why__icon">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <img src="{{ asset('assets/images/server.png') }}" alt="Sauvegarde" loading="lazy">
         </div>
         <div class="why__title">Sauvegardes quotidiennes</div>
         <div class="why__desc">Restaurez votre site en un clic grâce à nos sauvegardes automatiques stockées sur le cloud. Zéro risque de perte de données.</div>
       </div>
       <div class="why__card">
         <div class="why__icon">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <img src="{{ asset('assets/images/performance.png') }}" alt="Qualité de service" loading="lazy">
         </div>
         <div class="why__title">Remboursement 30 jours</div>
         <div class="why__desc">Non satisfait dans les 30 jours suivant votre commande ? Nous vous remboursons intégralement, sans questions posées.</div>
@@ -697,36 +776,123 @@
         <a href="{{ route('hebergement.commander') }}" class="tic-btn tic-btn--primary" style="margin-top:24px;">
           Démarrer maintenant
         </a>
-      </div>
 
-      <div>
+        {{-- CMS logos avec images réelles --}}
         <div class="cms__grid">
           <div class="cms__logo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm-1.56 14.87L5.5 12l1.41-1.41 3.53 3.53 7.15-7.15 1.41 1.42-8.56 8.48z"/></svg>
+            <img src="{{ asset('assets/images/wordpress.png') }}" alt="WordPress" loading="lazy">
             WordPress
           </div>
           <div class="cms__logo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm-1.56 14.87L5.5 12l1.41-1.41 3.53 3.53 7.15-7.15 1.41 1.42-8.56 8.48z"/></svg>
+            <img src="{{ asset('assets/images/installation.png') }}" alt="Joomla" loading="lazy">
             Joomla
           </div>
           <div class="cms__logo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm-1.56 14.87L5.5 12l1.41-1.41 3.53 3.53 7.15-7.15 1.41 1.42-8.56 8.48z"/></svg>
+            <img src="{{ asset('assets/images/cloud.png') }}" alt="Drupal" loading="lazy">
             Drupal
           </div>
           <div class="cms__logo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm-1.56 14.87L5.5 12l1.41-1.41 3.53 3.53 7.15-7.15 1.41 1.42-8.56 8.48z"/></svg>
+            <img src="{{ asset('assets/images/application.png') }}" alt="WooCommerce" loading="lazy">
             WooCommerce
           </div>
           <div class="cms__logo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm-1.56 14.87L5.5 12l1.41-1.41 3.53 3.53 7.15-7.15 1.41 1.42-8.56 8.48z"/></svg>
-            PrestaShop
+            <img src="{{ asset('assets/images/analyse.png') }}" alt="OpenCart" loading="lazy">
+            OpenCart
           </div>
           <div class="cms__logo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm-1.56 14.87L5.5 12l1.41-1.41 3.53 3.53 7.15-7.15 1.41 1.42-8.56 8.48z"/></svg>
+            <img src="{{ asset('assets/images/infrastructure.png') }}" alt="Magento" loading="lazy">
             Magento
           </div>
         </div>
       </div>
+
+      {{-- Photo installation CMS --}}
+      <div class="cms__visual">
+        <img src="{{ asset('assets/images/installation.png') }}" alt="Installation CMS en 1 clic" loading="lazy">
+        <div class="cms__visual-overlay">
+          <span>Softaculous intégré</span>
+          <p>Votre CMS opérationnel<br>en moins de 2 minutes</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{{-- ================================================================
+     SPLIT — REVENDEUR / MUTUALISÉ
+================================================================ --}}
+<section class="split-section">
+  <div class="split-section__grid">
+
+    <div class="split-card">
+      <img src="{{ asset('assets/images/reseller.png') }}" alt="Hébergement Revendeur" loading="lazy">
+      <div class="split-card__overlay">
+        <span class="split-card__tag">Idéal pour les webmasters</span>
+        <div class="split-card__title">Hébergement<br>Revendeur</div>
+        <p class="split-card__desc">Des outils simples et évolutifs pour une gestion centralisée. Interface personnalisable pour votre autonomie et crédibilité.</p>
+        <a href="{{ route('hebergement.commander') }}" class="split-card__btn">En savoir plus →</a>
+      </div>
+    </div>
+
+    <div class="split-card">
+      <img src="{{ asset('assets/images/mutualise.jpg') }}" alt="Hébergement Mutualisé" loading="lazy">
+      <div class="split-card__overlay">
+        <span class="split-card__tag">Idéal pour débutants</span>
+        <div class="split-card__title">Hébergement<br>Mutualisé</div>
+        <p class="split-card__desc">Fiabilité, performance et sécurité à prix accessible. Des hébergements conçus pour optimiser votre présence en ligne.</p>
+        <a href="{{ route('hebergement.mutualise') }}" class="split-card__btn">Voir les plans →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{{-- ================================================================
+     BLOC HÉBERGEMENT PRO (hebergementwebci.jpg)
+================================================================ --}}
+<section class="tic-section" style="background:var(--grey);padding-top:60px;padding-bottom:60px;">
+  <div class="tic-container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;">
+
+      <div style="border-radius:20px;overflow:hidden;position:relative;">
+        <img src="{{ asset('assets/images/hebergement.jpg') }}"
+             alt="Hébergement web professionnel Côte d'Ivoire"
+             style="width:100%;height:320px;object-fit:cover;display:block;"
+             loading="lazy">
+        {{-- Badges superposés --}}
+        <div style="position:absolute;top:20px;left:20px;background:var(--orange);color:white;
+                    font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;
+                    text-transform:uppercase;letter-spacing:.08em;">
+          Disponible 99,99%
+        </div>
+      </div>
+
+      <div>
+        <span class="tic-tag">Hébergement professionnel</span>
+        <h2 class="tic-heading">Tout ce qu'il faut<br>pour votre <em>site web</em></h2>
+        <p class="tic-subtext">Nos solutions d'hébergement web conviennent parfaitement à tous types de sites. Nous disposons de tout ce qu'il faut pour un webmaster pour optimiser la gestion de son site internet.</p>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:24px;">
+          <div style="display:flex;align-items:center;gap:10px;font-size:.9rem;color:#2a3d5c;">
+            <img src="{{ asset('assets/images/hosting.png') }}" alt="" style="width:22px;height:22px;object-fit:contain;" loading="lazy">
+            Hébergement Web haute performance
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:.9rem;color:#2a3d5c;">
+            <img src="{{ asset('assets/images/reseller.png') }}" alt="" style="width:22px;height:22px;object-fit:contain;" loading="lazy">
+            Pack Revendeur avec WHM / cPanel
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:.9rem;color:#2a3d5c;">
+            <img src="{{ asset('assets/images/cloud.png') }}" alt="" style="width:22px;height:22px;object-fit:contain;" loading="lazy">
+            Serveur Cloud évolutif
+          </div>
+        </div>
+
+        <a href="{{ route('hebergement.commander') }}" class="tic-btn tic-btn--primary" style="margin-top:28px;">
+          Acheter un pack maintenant
+        </a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -807,7 +973,7 @@
         <div class="cta-banner__title">Prêt à lancer votre site web ?</div>
         <div class="cta-banner__sub">Démarrez dès aujourd'hui avec un plan adapté à votre budget.</div>
       </div>
-      <a href="{{ route('hebergement.inscription') }}" class="cta-banner__btn">
+      <a href="{{ route('hebergement.commander') }}" class="cta-banner__btn">
         Choisir mon hébergement →
       </a>
     </div>
@@ -819,21 +985,19 @@
 ================================================================ --}}
 <script>
   /* ── Hero plan switcher ── */
+  const commanderUrl = "{{ route('hebergement.commander') }}";
   const plans = {
     presence: {
       price: '54 000',
-      feats: ['100 Go d\'espace disque','100 comptes email POP','Bande passante 1 000 Go','cPanel + 3 bases de données','Remboursé sous 30 jours'],
-      url: 'webcompte_presence_linix.php'
+      feats: ['100 Go d\'espace disque','100 comptes email POP','Bande passante 1 000 Go','cPanel + 3 bases de données','Remboursé sous 30 jours']
     },
     confort: {
       price: '90 000',
-      feats: ['300 Go d\'espace disque','300 comptes email POP','Bande passante 3 000 Go','cPanel + 10 bases de données','Multi-domaines (3)'],
-      url: 'webcompte_confort_linix.php'
+      feats: ['300 Go d\'espace disque','300 comptes email POP','Bande passante 3 000 Go','cPanel + 10 bases de données','Multi-domaines (3)']
     },
     prestige: {
       price: '102 000',
-      feats: ['750 Go d\'espace disque','Emails illimités','Bande passante illimitée','cPanel + 20 bases de données','10 domaines hébergeables'],
-      url: 'webcompte_prestige_linix.php'
+      feats: ['750 Go d\'espace disque','Emails illimités','Bande passante illimitée','cPanel + 20 bases de données','10 domaines hébergeables']
     }
   };
 
@@ -847,7 +1011,7 @@
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
         ${f}
       </div>`).join('');
-    document.getElementById('hero-cta').href = p.url;
+    document.getElementById('hero-cta').href = commanderUrl;
   }
 
   /* ── FAQ accordion ── */
