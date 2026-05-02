@@ -1,491 +1,600 @@
 @extends('frontend.layouts.base')
 
-@section('title', 'Hébergement Web — TICAFRIQUE')
+@section('title', 'TICAFRIQUE — Hébergement Web Professionnel en Côte d\'Ivoire')
 
 @section('content')
 
 {{-- ============================================================
-     INLINE STYLES — scoped to this page only
-     Font: Clash Display (display) + DM Sans (body)
-     Palette: #122457 · #2a4d84 · #4370aa · #84a1c0 · #bfcfdd · #fdfdfd
+     STYLES — welcome.blade.php
+     Palette TICAFRIQUE : #122457 · #2a4d84 · #4370aa · #84a1c0 · #bfcfdd · #fdfdfd
+     Framework : Bootstrap 5 (grille) + CSS custom
+     Fonts : Clash Display (display) + DM Sans (body)
 ============================================================ --}}
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
   @import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
 
+  /* ── Tokens ── */
   :root {
-    --navy:      #122457;   /* très profond — fond dark sections */
-    --navy-md:   #2a4d84;   /* bleu foncé — cards sombres */
-    --navy-lt:   #1a3366;   /* intermédiaire */
-    --orange:    #4370aa;   /* bleu principal — CTA, accents (remplace orange) */
-    --orange-lt: #84a1c0;   /* bleu clair — hover states */
-    --white:     #fdfdfd;   /* fond global */
-    --grey:      #eef2f7;   /* fond sections légères (dérivé #bfcfdd@15%) */
-    --muted:     #84a1c0;   /* texte atténué */
-    --pale:      #bfcfdd;   /* bleu très clair — bordures, bg subtils */
-    --border:    rgba(191,207,221,0.25);
-    --border-dk: rgba(255,255,255,0.1);  /* bordures sur fonds sombres */
-    --radius:  14px;
-    --shadow:  0 24px 60px rgba(18,36,87,.18);
-    --font-display: 'Clash Display', sans-serif;
-    --font-body:    'DM Sans', sans-serif;
-    --transition:   .3s cubic-bezier(.4,0,.2,1);
+    --navy:       #122457;
+    --navy-md:    #2a4d84;
+    --navy-lt:    #1a3366;
+    --blue:       #4370aa;
+    --blue-lt:    #84a1c0;
+    --white:      #fdfdfd;
+    --grey-bg:    #eef2f7;
+    --muted:      #84a1c0;
+    --pale:       #bfcfdd;
+    --border:     rgba(191,207,221,.25);
+    --border-dk:  rgba(255,255,255,.1);
+    --radius-sm:  10px;
+    --radius:     16px;
+    --radius-lg:  24px;
+    --shadow:     0 20px 56px rgba(18,36,87,.14);
+    --shadow-lg:  0 32px 80px rgba(18,36,87,.22);
+    --font-d: 'Clash Display', sans-serif;
+    --font-b: 'DM Sans', sans-serif;
+    --tr: .28s cubic-bezier(.4,0,.2,1);
   }
 
-  /* ── Reset/Base ── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font-body); color: var(--navy); background: var(--white); }
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; }
+  body { font-family: var(--font-b); color: var(--navy); background: var(--white); }
   a { text-decoration: none; }
+  img { max-width: 100%; }
 
-  /* ── Utility ── */
-  .tic-section        { padding: 90px 0; }
-  .tic-section--dark  { background: var(--navy); color: var(--white); }
-  .tic-section--grey  { background: var(--grey); }
-  .tic-container      { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-  .tic-tag            { display: inline-block; background: rgba(67,112,170,.12); color: var(--orange);
-                        font-size: .75rem; font-weight: 600; letter-spacing: .1em;
-                        text-transform: uppercase; padding: 5px 12px; border-radius: 100px;
-                        margin-bottom: 14px; }
-  .tic-tag--light     { background: rgba(255,255,255,.12); color: rgba(255,255,255,.75); }
-  .tic-heading        { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
-                        font-weight: 700; line-height: 1.15; }
-  .tic-heading em     { color: var(--orange); font-style: normal; }
-  .tic-subtext        { color: var(--muted); font-size: 1.05rem; line-height: 1.7; margin-top: 14px; }
-  .tic-subtext--light { color: rgba(255,255,255,.55); }
-  .tic-btn            { display: inline-flex; align-items: center; gap: 8px;
-                        padding: 13px 28px; border-radius: 100px; font-weight: 600;
-                        font-size: .95rem; cursor: pointer; transition: var(--transition); border: none; }
-  .tic-btn--primary   { background: var(--orange); color: var(--white); }
-  .tic-btn--primary:hover { background: var(--navy-md); transform: translateY(-2px);
-                            box-shadow: 0 12px 32px rgba(67,112,170,.35); color: var(--white); }
-  .tic-btn--ghost     { background: transparent; border: 1.5px solid rgba(255,255,255,.25); color: var(--white); }
-  .tic-btn--ghost:hover { border-color: var(--pale); color: var(--pale); }
-  .tic-btn--dark      { background: var(--navy); color: var(--white); }
-  .tic-btn--dark:hover { background: var(--navy-md); transform: translateY(-2px); color: var(--white); }
+  /* ── Utilities ── */
+  .w-section        { padding: 88px 0; }
+  .w-section--dark  { background: var(--navy); color: var(--white); }
+  .w-section--grey  { background: var(--grey-bg); }
+  .w-tag { display: inline-block; padding: 5px 14px; border-radius: 100px;
+           font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+           text-transform: uppercase; margin-bottom: 14px; }
+  .w-tag--blue  { background: rgba(67,112,170,.12); color: var(--blue); }
+  .w-tag--light { background: rgba(255,255,255,.12); color: rgba(255,255,255,.8); }
+  .w-heading { font-family: var(--font-d); font-size: clamp(1.9rem,3.8vw,2.9rem);
+               font-weight: 700; line-height: 1.15; }
+  .w-heading em { color: var(--blue); font-style: normal; }
+  .w-heading--light { color: var(--white); }
+  .w-heading--light em {
+    background: linear-gradient(135deg,var(--pale),var(--blue-lt));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .w-sub { color: var(--muted); font-size: 1rem; line-height: 1.72; margin-top: 14px; }
+  .w-sub--light { color: rgba(255,255,255,.55); }
 
-  /* ────────────────────────────────────────────────
-     HERO
-  ──────────────────────────────────────────────── */
+  /* Buttons */
+  .w-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px;
+           border-radius: 100px; font-weight: 600; font-size: .9rem; cursor: pointer;
+           transition: var(--tr); border: none; font-family: var(--font-b);
+           white-space: nowrap; }
+  .w-btn--primary { background: var(--blue); color: var(--white); }
+  .w-btn--primary:hover { background: var(--navy-md); color: var(--white);
+                           transform: translateY(-2px); box-shadow: 0 12px 32px rgba(67,112,170,.35); }
+  .w-btn--outline { background: transparent; border: 1.5px solid rgba(255,255,255,.3);
+                    color: var(--white); }
+  .w-btn--outline:hover { border-color: var(--pale); color: var(--pale); transform: translateY(-2px); }
+  .w-btn--light-outline { background: transparent; border: 1.5px solid var(--pale); color: var(--navy); }
+  .w-btn--light-outline:hover { border-color: var(--blue); color: var(--blue); background: rgba(67,112,170,.05); }
+
+  /* ── Fade-in animation (triggered by IntersectionObserver) ── */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up-d1 { transition-delay: .1s; }
+  .fade-up-d2 { transition-delay: .2s; }
+  .fade-up-d3 { transition-delay: .3s; }
+  .fade-up-d4 { transition-delay: .4s; }
+  .fade-up-d5 { transition-delay: .5s; }
+
+  /* ──────────────────────────────────────────────
+     1. HERO
+  ────────────────────────────────────────────── */
   .hero {
-    position: relative; background: var(--navy); overflow: hidden;
-    padding: 100px 0 80px; min-height: 88vh;
+    position: relative; min-height: 90vh;
+    background: var(--navy); overflow: hidden;
     display: flex; align-items: center;
+    padding: 90px 0 70px;
   }
-  /* Decorative mesh blobs */
-  .hero::before {
-    content: ''; position: absolute; width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(67,112,170,.22) 0%, transparent 70%);
-    top: -150px; right: -150px; border-radius: 50%; pointer-events: none;
+  .hero__bg {
+    position: absolute; inset: 0;
+    background-image: url('https://picsum.photos/seed/server1/1400/900');
+    background-size: cover; background-position: center;
+    opacity: .08; pointer-events: none;
   }
-  .hero::after {
-    content: ''; position: absolute; width: 500px; height: 500px;
+  .hero__blob-1 {
+    position: absolute; width: 650px; height: 650px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(67,112,170,.25) 0%, transparent 70%);
+    top: -120px; right: -80px; pointer-events: none;
+  }
+  .hero__blob-2 {
+    position: absolute; width: 400px; height: 400px; border-radius: 50%;
     background: radial-gradient(circle, rgba(191,207,221,.1) 0%, transparent 70%);
-    bottom: -100px; left: -80px; border-radius: 50%; pointer-events: none;
+    bottom: -80px; left: -60px; pointer-events: none;
   }
-  .hero__grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-    align-items: center; position: relative; z-index: 2;
+  .hero__content { position: relative; z-index: 2; }
+  .hero__eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+  .hero__dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+               box-shadow: 0 0 0 4px rgba(34,197,94,.2);
+               animation: dot-pulse 2.2s ease infinite; flex-shrink: 0; }
+  @keyframes dot-pulse {
+    0%,100% { box-shadow: 0 0 0 4px rgba(34,197,94,.2); }
+    50%      { box-shadow: 0 0 0 9px rgba(34,197,94,.07); }
   }
-  .hero__eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-  .hero__live-dot {
-    width: 8px; height: 8px; background: #22c55e; border-radius: 50%;
-    box-shadow: 0 0 0 3px rgba(34,197,94,.2);
-    animation: pulse-dot 2s ease infinite;
+  .hero__eyebrow span { color: rgba(255,255,255,.5); font-size: .8rem;
+                         letter-spacing: .08em; text-transform: uppercase; }
+  .hero__title {
+    font-family: var(--font-d); font-size: clamp(2.6rem,5.5vw,4.2rem);
+    font-weight: 700; color: var(--white); line-height: 1.08; margin-bottom: 18px;
   }
-  @keyframes pulse-dot {
-    0%,100% { box-shadow: 0 0 0 3px rgba(34,197,94,.2); }
-    50%      { box-shadow: 0 0 0 7px rgba(34,197,94,.1); }
+  .hero__title .accent {
+    background: linear-gradient(135deg, var(--pale) 0%, var(--blue-lt) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }
-  .hero__eyebrow span { color: rgba(255,255,255,.55); font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; }
-  .hero__heading { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-                   font-weight: 700; color: var(--white); line-height: 1.12; }
-  .hero__heading em { color: var(--pale); font-style: normal;
-                      background: linear-gradient(135deg, var(--pale), var(--orange-lt));
-                      -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero__desc { color: rgba(255,255,255,.55); font-size: 1.05rem; line-height: 1.75;
-                margin: 20px 0 34px; max-width: 500px; }
+  .hero__tagline { color: rgba(255,255,255,.45); font-size: .82rem; font-weight: 600;
+                   letter-spacing: .06em; text-transform: uppercase; margin-bottom: 20px; }
+  .hero__tagline span { color: rgba(255,255,255,.7); }
+  .hero__desc { color: rgba(255,255,255,.55); font-size: 1rem; line-height: 1.78;
+                max-width: 490px; margin-bottom: 36px; }
   .hero__actions { display: flex; gap: 14px; flex-wrap: wrap; }
-  .hero__trust   { display: flex; align-items: center; gap: 16px; margin-top: 40px; }
-  .hero__avatars { display: flex; }
-  .hero__avatars img { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--navy);
-                       margin-left: -10px; object-fit: cover; }
-  .hero__avatars img:first-child { margin-left: 0; }
-  .hero__trust-text { font-size: .85rem; color: rgba(255,255,255,.45); line-height: 1.4; }
-  .hero__trust-text strong { display: block; color: rgba(255,255,255,.85); font-weight: 600; }
+  .hero__since { margin-top: 44px; display: flex; align-items: center; gap: 16px;
+                 padding-top: 30px; border-top: 1px solid rgba(191,207,221,.15); }
+  .hero__since-num { font-family: var(--font-d); font-size: 2.2rem; font-weight: 700;
+                     color: var(--white); line-height: 1; }
+  .hero__since-num span { color: var(--blue-lt); font-size: 1rem; }
+  .hero__since-text { color: rgba(255,255,255,.45); font-size: .82rem; line-height: 1.5; }
+  .hero__since-text strong { display: block; color: rgba(255,255,255,.75); font-weight: 600; }
 
-  /* Pricing card in hero */
-  .hero__card-wrap { position: relative; }
-  .hero__card {
-    background: var(--navy-md); border: 1px solid var(--border-dk); border-radius: 24px;
-    padding: 32px; position: relative; overflow: hidden;
+  /* Hero image side */
+  .hero__visual { position: relative; z-index: 2; }
+  .hero__img-wrap {
+    border-radius: var(--radius-lg); overflow: hidden;
+    position: relative;
+    box-shadow: 0 32px 80px rgba(0,0,0,.4);
   }
-  .hero__card::before {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(67,112,170,.08) 0%, transparent 60%);
-    pointer-events: none;
+  .hero__img-wrap img { width: 100%; height: 440px; object-fit: cover; display: block; }
+  .hero__img-badge {
+    position: absolute; bottom: 24px; left: 24px; right: 24px;
+    background: rgba(18,36,87,.85); backdrop-filter: blur(12px);
+    border: 1px solid rgba(191,207,221,.2); border-radius: 14px;
+    padding: 16px 20px; display: flex; align-items: center; gap: 14px;
   }
-  .hero__card-badge {
-    position: absolute; top: 20px; right: 20px;
-    background: var(--orange); color: white; font-size: .72rem; font-weight: 700;
-    padding: 4px 10px; border-radius: 100px; letter-spacing: .06em; text-transform: uppercase;
+  .hero__img-badge-icon { width: 44px; height: 44px; border-radius: 12px;
+                           background: var(--blue); display: flex; align-items: center;
+                           justify-content: center; flex-shrink: 0; }
+  .hero__img-badge-icon svg { color: white; }
+  .hero__img-badge-text strong { display: block; color: white; font-weight: 700;
+                                  font-size: .95rem; }
+  .hero__img-badge-text span { color: var(--muted); font-size: .8rem; }
+  .hero__float-card {
+    position: absolute; top: -16px; right: -20px;
+    background: var(--navy-md); border: 1px solid var(--border-dk);
+    border-radius: 14px; padding: 14px 18px; text-align: center;
+    min-width: 130px;
   }
-  .hero__card-label { color: var(--muted); font-size: .82rem; text-transform: uppercase;
-                      letter-spacing: .08em; margin-bottom: 8px; }
-  .hero__card-price { font-family: var(--font-display); font-size: 2.8rem; font-weight: 700;
-                      color: var(--white); line-height: 1; }
-  .hero__card-price sup { font-size: 1.2rem; vertical-align: top; padding-top: 8px; }
-  .hero__card-price sub { font-size: .9rem; color: var(--muted); font-weight: 400; }
-  .hero__card-feats { margin: 24px 0; display: flex; flex-direction: column; gap: 10px; }
-  .hero__card-feat  { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.7); font-size: .9rem; }
-  .hero__card-feat svg { color: var(--pale); flex-shrink: 0; }
-  .hero__card-slider { display: flex; gap: 8px; margin-bottom: 24px; }
-  .hero__card-tab   { flex: 1; padding: 8px 6px; border-radius: 8px; text-align: center;
-                      font-size: .78rem; font-weight: 600; cursor: pointer; transition: var(--transition);
-                      background: var(--navy-lt); color: var(--muted); border: none; }
-  .hero__card-tab.active { background: var(--orange); color: white; }
+  .hero__float-card .num { font-family: var(--font-d); font-size: 1.8rem; font-weight: 700;
+                            color: var(--white); line-height: 1; }
+  .hero__float-card .num span { color: #22c55e; }
+  .hero__float-card .lbl { color: var(--muted); font-size: .73rem; margin-top: 4px; }
 
-  /* ── Domain Search ── */
-  .domain-search { background: var(--white); padding: 60px 0; }
-  .domain-search__inner {
-    background: var(--navy); border-radius: 24px; padding: 50px 48px;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
+  /* ──────────────────────────────────────────────
+     2. FEATURES STRIP
+  ────────────────────────────────────────────── */
+  .strip { background: var(--grey-bg); border-top: 1px solid var(--pale);
+           border-bottom: 1px solid var(--pale); padding: 22px 0; }
+  .strip__list { display: flex; justify-content: space-between;
+                 flex-wrap: wrap; gap: 18px; align-items: center; }
+  .strip__item { display: flex; align-items: center; gap: 9px;
+                 font-size: .85rem; font-weight: 500; color: var(--navy); }
+  .strip__item svg { color: var(--blue); flex-shrink: 0; }
+
+  /* ──────────────────────────────────────────────
+     3. SERVICES / PRICING CARDS
+  ────────────────────────────────────────────── */
+  .services { background: var(--white); }
+  .services__tabs { display: flex; gap: 6px; flex-wrap: wrap;
+                    border-bottom: 1px solid var(--pale); margin-bottom: 48px; }
+  .services__tab {
+    padding: 10px 22px; border-radius: 100px 100px 0 0; font-size: .88rem;
+    font-weight: 600; cursor: pointer; background: none; border: none;
+    color: var(--muted); font-family: var(--font-b); transition: var(--tr);
+    position: relative; bottom: -1px; border-bottom: 2px solid transparent;
+  }
+  .services__tab.active { color: var(--blue); border-bottom-color: var(--blue);
+                           background: rgba(67,112,170,.06); }
+  .services__tab .badge-sale {
+    display: inline-block; font-size: .62rem; font-weight: 800; padding: 2px 6px;
+    border-radius: 6px; background: #22c55e; color: white;
+    margin-left: 6px; vertical-align: middle; letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .services__panel { display: none; }
+  .services__panel.active { display: block; }
+
+  /* Expert col */
+  .expert-col {
+    background: var(--navy); border-radius: var(--radius-lg);
+    padding: 36px 28px; height: 100%; color: var(--white);
+    display: flex; flex-direction: column; justify-content: space-between;
     position: relative; overflow: hidden;
   }
-  .domain-search__inner::after {
-    content: ''; position: absolute; right: -60px; top: -60px;
-    width: 300px; height: 300px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(67,112,170,.2) 0%, transparent 70%);
+  .expert-col::before {
+    content: ''; position: absolute; right: -40px; bottom: -40px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(67,112,170,.3) 0%, transparent 70%);
     pointer-events: none;
   }
-  .domain-search__form { display: flex; gap: 10px; margin-top: 24px; }
-  .domain-search__input {
-    flex: 1; padding: 14px 20px; border-radius: 100px;
-    background: rgba(255,255,255,.07); border: 1.5px solid rgba(191,207,221,.2);
-    color: white; font-size: .95rem; font-family: var(--font-body);
-    outline: none; transition: var(--transition);
-  }
-  .domain-search__input::placeholder { color: rgba(255,255,255,.3); }
-  .domain-search__input:focus { border-color: var(--pale); background: rgba(255,255,255,.1); }
-  .domain-search__exts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-  .ext-chip {
-    padding: 5px 14px; border-radius: 100px; font-size: .8rem; font-weight: 600;
-    background: rgba(255,255,255,.06); color: rgba(255,255,255,.6);
-    border: 1px solid rgba(191,207,221,.15); cursor: pointer; transition: var(--transition);
-    user-select: none;
-  }
-  .ext-chip.active, .ext-chip:hover { background: var(--orange); color: white; border-color: var(--orange); }
-  .domain-search__prices { position: relative; z-index: 1; }
-  .domain-price-card {
-    background: rgba(255,255,255,.05); border: 1px solid var(--border-dk); border-radius: 16px;
-    padding: 18px 22px; display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 10px; transition: var(--transition);
-  }
-  .domain-price-card:hover { background: rgba(67,112,170,.12); border-color: rgba(191,207,221,.3); }
-  .domain-price-card__ext { font-family: var(--font-display); font-size: 1.1rem;
-                             font-weight: 700; color: white; }
-  .domain-price-card__price { color: var(--pale); font-weight: 700; font-size: 1rem; }
-  .domain-price-card__yr    { color: var(--muted); font-size: .78rem; margin-left: 4px; }
+  .expert-col__title { font-family: var(--font-d); font-size: 1.6rem; font-weight: 700;
+                        color: var(--white); line-height: 1.2; margin-bottom: 16px; }
+  .expert-col__title em { color: var(--pale); font-style: normal; }
+  .expert-col__desc  { color: rgba(255,255,255,.5); font-size: .88rem; line-height: 1.7;
+                        margin-bottom: 24px; }
+  .expert-col__img { border-radius: var(--radius); overflow: hidden; margin-bottom: 24px;
+                      height: 180px; }
+  .expert-col__img img { width: 100%; height: 100%; object-fit: cover; display: block;
+                           filter: brightness(.8) saturate(1.1); }
 
-  /* ── Features Strip ── */
-  .features-strip { padding: 30px 0; background: var(--grey); border-top: 1px solid var(--pale); border-bottom: 1px solid var(--pale); }
-  .features-strip__list { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
-  .features-strip__item { display: flex; align-items: center; gap: 10px; font-size: .88rem;
-                           font-weight: 500; color: var(--navy); }
-  .features-strip__item svg { color: var(--orange); flex-shrink: 0; }
-
-  /* ── Pricing Section ── */
-  .pricing { background: var(--white); }
-  .pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 52px; }
-  .pricing__card {
-    border: 1.5px solid var(--pale); border-radius: 20px; overflow: hidden;
-    transition: var(--transition); position: relative;
+  /* Pricing cards */
+  .price-card {
+    border: 1.5px solid var(--pale); border-radius: var(--radius-lg);
+    overflow: hidden; transition: var(--tr); background: var(--white);
+    height: 100%;
   }
-  .pricing__card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: var(--orange); }
-  .pricing__card--featured {
-    border-color: var(--orange); transform: translateY(-10px);
-    box-shadow: 0 24px 64px rgba(67,112,170,.22);
+  .price-card:hover { transform: translateY(-6px); box-shadow: var(--shadow);
+                       border-color: var(--blue); }
+  .price-card__head { padding: 24px 24px 18px;
+                       background: linear-gradient(135deg, var(--grey-bg) 0%, var(--white) 100%); }
+  .price-card__icon { width: 48px; height: 48px; background: rgba(67,112,170,.1);
+                       border-radius: 12px; display: flex; align-items: center;
+                       justify-content: center; margin-bottom: 16px; }
+  .price-card__icon svg { color: var(--blue); }
+  .price-card__name { font-family: var(--font-d); font-size: 1.05rem; font-weight: 700;
+                       color: var(--navy); margin-bottom: 6px; }
+  .price-card__tagline { color: var(--muted); font-size: .8rem; }
+  .price-card__body { padding: 18px 24px 24px; }
+  .price-card__from { color: var(--muted); font-size: .75rem; margin-bottom: 4px;
+                       text-transform: uppercase; letter-spacing: .06em; }
+  .price-card__price { font-family: var(--font-d); font-size: 2.4rem; font-weight: 700;
+                        color: var(--navy); line-height: 1; }
+  .price-card__price sup { font-size: .9rem; vertical-align: top; padding-top: 8px; }
+  .price-card__price sub { font-size: .8rem; color: var(--muted); font-weight: 400; }
+  .price-card__link { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
+                       font-size: .82rem; font-weight: 600; color: var(--blue);
+                       transition: var(--tr); }
+  .price-card__link:hover { color: var(--navy-md); gap: 10px; }
+
+  /* ──────────────────────────────────────────────
+     4. MANAGED HOSTING FEATURES (2-col)
+  ────────────────────────────────────────────── */
+  .managed { background: var(--grey-bg); }
+  .managed__card {
+    border: 1.5px solid var(--pale); border-radius: var(--radius-lg);
+    padding: 32px; height: 100%; background: var(--white);
   }
-  .pricing__card-head { padding: 32px 28px 24px; }
-  .pricing__card--featured .pricing__card-head { background: var(--navy); color: white; }
-  .pricing__popular { display: inline-block; background: var(--orange); color: white;
-                      font-size: .72rem; font-weight: 700; padding: 4px 10px;
-                      border-radius: 100px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: .06em; }
-  .pricing__plan-name { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; }
-  .pricing__card--featured .pricing__plan-name { color: white; }
-  .pricing__price { font-family: var(--font-display); font-size: 2.5rem; font-weight: 700;
-                    color: var(--navy); margin: 12px 0 4px; line-height: 1; }
-  .pricing__card--featured .pricing__price { color: white; }
-  .pricing__price sup { font-size: 1rem; vertical-align: top; padding-top: 8px; }
-  .pricing__price-yr   { font-size: .82rem; color: var(--muted); font-weight: 400; }
-  .pricing__card--featured .pricing__price-yr { color: rgba(255,255,255,.45); }
-  .pricing__card-body  { padding: 24px 28px 30px; }
-  .pricing__feats { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
-  .pricing__feats li { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: #2a3d5c; }
-  .pricing__feats li svg { color: var(--orange); flex-shrink: 0; }
-  .pricing__feats li.disabled { color: var(--muted); text-decoration: line-through; }
-  .pricing__feats li.disabled svg { color: var(--pale); }
-  .pricing__card-btn { display: block; text-align: center; padding: 13px; border-radius: 100px;
-                       font-weight: 600; font-size: .95rem; transition: var(--transition); }
-  .pricing__card--featured .pricing__card-btn { background: var(--orange); color: white; }
-  .pricing__card--featured .pricing__card-btn:hover { background: var(--navy-md); transform: translateY(-2px); }
-  .pricing__card-btn--outline { border: 1.5px solid var(--pale); color: var(--navy); }
-  .pricing__card-btn--outline:hover { border-color: var(--orange); color: var(--orange); background: rgba(67,112,170,.05); }
+  .managed__card-title { font-family: var(--font-d); font-size: 1.1rem; font-weight: 700;
+                           color: var(--blue); margin-bottom: 24px; display: flex;
+                           align-items: center; gap: 10px; }
+  .managed__card-title svg { background: rgba(67,112,170,.1); padding: 6px;
+                               border-radius: 8px; color: var(--blue); }
+  .managed__feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .managed__feat { display: flex; flex-direction: column; align-items: center;
+                    text-align: center; gap: 10px; }
+  .managed__feat-icon { width: 56px; height: 56px; border-radius: 14px;
+                          background: var(--grey-bg); display: flex; align-items: center;
+                          justify-content: center; }
+  .managed__feat-icon svg { color: var(--blue); }
+  .managed__feat-label { font-size: .82rem; font-weight: 500; color: var(--navy);
+                           line-height: 1.4; }
 
-  /* ── Stats ── */
-  .stats { background: var(--navy); padding: 70px 0; }
-  .stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-                 background: var(--border-dk); border-radius: 20px; overflow: hidden;
-                 border: 1px solid var(--border-dk); }
-  .stats__item { background: var(--navy-md); padding: 36px 28px; text-align: center; }
-  .stats__num  { font-family: var(--font-display); font-size: 2.8rem; font-weight: 700;
-                 color: var(--white); line-height: 1; }
-  .stats__num span { color: var(--pale); }
-  .stats__label { color: var(--muted); font-size: .88rem; margin-top: 8px; }
-
-  /* ── Why Us (features) ── */
-  .why__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 52px; }
-  .why__card { padding: 32px; border-radius: 20px; border: 1.5px solid var(--pale);
-               transition: var(--transition); }
-  .why__card:hover { background: var(--grey); border-color: var(--orange); transform: translateY(-4px); }
-  .why__icon { width: 52px; height: 52px; background: rgba(67,112,170,.1);
-               border-radius: 14px; display: flex; align-items: center; justify-content: center;
-               margin-bottom: 20px; }
-  .why__icon svg { color: var(--orange); }
-  /* ── Icônes réelles via <img> ── */
-  .why__icon img { width: 28px; height: 28px; object-fit: contain; }
-  .why__title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
-  .why__desc  { color: var(--muted); font-size: .9rem; line-height: 1.65; }
-
-  /* ── CMS Section ── */
-  .cms { background: var(--navy); }
-  .cms__grid { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 36px; }
-  .cms__logo {
-    background: rgba(255,255,255,.06); border: 1px solid var(--border-dk);
-    border-radius: 14px; padding: 14px 20px; display: flex; align-items: center;
-    gap: 10px; color: rgba(255,255,255,.65); font-weight: 600; font-size: .9rem;
-    transition: var(--transition); cursor: default;
+  /* ──────────────────────────────────────────────
+     5. THREE STEPS
+  ────────────────────────────────────────────── */
+  .steps { background: var(--white); }
+  .steps__connector { display: flex; align-items: center; justify-content: center; }
+  .steps__connector-line {
+    flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--pale), transparent);
   }
-  .cms__logo:hover { background: rgba(67,112,170,.15); border-color: rgba(191,207,221,.3); color: white; }
-  /* Logos CMS réels */
-  .cms__logo img { width: 40px; height: 40px; object-fit: contain; filter: brightness(0) invert(1); opacity: 1; transition: opacity var(--transition); }
-  .cms__logo:hover img { opacity: 1; filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(255,255,255,.4)); }
-
-  /* ── CMS visual side ── */
-  .cms__visual {
-    position: relative; border-radius: 20px; overflow: hidden;
-    height: 340px;
+  .step-card { text-align: center; position: relative; }
+  .step-card__num {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--blue);
+    color: white; font-family: var(--font-d); font-size: 1.3rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+    position: relative; z-index: 1;
+    box-shadow: 0 8px 24px rgba(67,112,170,.35);
   }
-  .cms__visual img { width: 100%; height: 100%; object-fit: cover; display: block;
-                     filter: brightness(.7); }
-  .cms__visual-overlay {
+  .step-card__img { width: 120px; height: 120px; border-radius: var(--radius);
+                     object-fit: cover; margin: 0 auto 20px; display: block;
+                     filter: drop-shadow(0 8px 20px rgba(18,36,87,.12)); }
+  .step-card__title { font-family: var(--font-d); font-size: 1rem; font-weight: 700;
+                       color: var(--navy); margin-bottom: 10px; }
+  .step-card__desc { color: var(--muted); font-size: .85rem; line-height: 1.65; }
+
+  /* ──────────────────────────────────────────────
+     6. PERFORMANCE SECTION (split)
+  ────────────────────────────────────────────── */
+  .perf { background: var(--navy); }
+  .perf__img-wrap { border-radius: var(--radius-lg); overflow: hidden;
+                     position: relative; height: 100%; min-height: 360px; }
+  .perf__img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block;
+                          filter: brightness(.8) saturate(1.3); }
+  .perf__img-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(18,36,87,.7) 0%, transparent 60%);
-    display: flex; flex-direction: column; justify-content: flex-end; padding: 28px;
+    background: linear-gradient(135deg, rgba(18,36,87,.6) 0%, transparent 60%);
   }
-  .cms__visual-overlay span { color: var(--pale); font-size: .8rem; text-transform: uppercase;
-                               letter-spacing: .1em; font-weight: 600; }
-  .cms__visual-overlay p { color: white; font-family: var(--font-display); font-size: 1.3rem;
-                            font-weight: 700; margin-top: 6px; line-height: 1.3; }
+  .perf__list { list-style: none; padding: 0; margin: 24px 0; display: flex;
+                 flex-direction: column; gap: 11px; }
+  .perf__list li { display: flex; align-items: center; gap: 10px;
+                    color: rgba(255,255,255,.65); font-size: .88rem; }
+  .perf__list li svg { color: #22c55e; flex-shrink: 0; }
 
-  /* ── Split feature section (revendeur / mutualisé) ── */
-  .split-section { background: var(--white); }
-  .split-section__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-  .split-card {
-    position: relative; overflow: hidden; min-height: 400px;
-    display: flex; align-items: flex-end;
+  /* ──────────────────────────────────────────────
+     7. FEATURES GRID (6-up)
+  ────────────────────────────────────────────── */
+  .feats { background: var(--grey-bg); }
+  .feat-card {
+    background: var(--white); border: 1.5px solid var(--pale);
+    border-radius: var(--radius-lg); padding: 32px; text-align: center;
+    transition: var(--tr); height: 100%;
   }
-  .split-card img { position: absolute; inset: 0; width: 100%; height: 100%;
-                    object-fit: cover; transition: transform .6s ease; }
-  .split-card:hover img { transform: scale(1.04); }
-  .split-card__overlay {
-    position: relative; z-index: 2; width: 100%;
-    background: linear-gradient(to top, rgba(18,36,87,.9) 0%, transparent 100%);
-    padding: 36px 32px;
-  }
-  .split-card__tag { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em;
-                     font-weight: 700; color: var(--pale); margin-bottom: 8px; display: block; }
-  .split-card__title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
-                       color: white; margin-bottom: 10px; }
-  .split-card__desc  { color: rgba(255,255,255,.65); font-size: .88rem; line-height: 1.6;
-                       margin-bottom: 20px; }
-  .split-card__btn { display: inline-flex; align-items: center; gap: 6px;
-                     background: var(--orange); color: white; padding: 10px 20px;
-                     border-radius: 100px; font-size: .85rem; font-weight: 600;
-                     transition: var(--transition); }
-  .split-card__btn:hover { background: var(--pale); color: var(--navy); }
+  .feat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow);
+                      border-color: var(--blue); }
+  .feat-card__icon { width: 70px; height: 70px; border-radius: 18px;
+                      background: rgba(67,112,170,.08); display: flex;
+                      align-items: center; justify-content: center;
+                      margin: 0 auto 20px; }
+  .feat-card__icon svg { color: var(--blue); }
+  .feat-card__icon img { width: 38px; height: 38px; object-fit: contain; }
+  .feat-card__title { font-family: var(--font-d); font-size: 1rem; font-weight: 700;
+                       color: var(--navy); margin-bottom: 10px; }
+  .feat-card__desc { color: var(--muted); font-size: .85rem; line-height: 1.65; }
 
-  /* ── Hero bg image overlay ── */
-  .hero__bg-img {
-    position: absolute; inset: 0; z-index: 0;
-    background-size: cover; background-position: center;
-    opacity: .12; /* subtle — ne pas écraser le contenu */
-    pointer-events: none;
+  /* ──────────────────────────────────────────────
+     8. STATS / SUPPORT
+  ────────────────────────────────────────────── */
+  .stats-section { background: var(--navy); }
+  .stat-box {
+    border-radius: var(--radius-lg); padding: 32px 24px; text-align: center;
+    position: relative; overflow: hidden;
   }
+  .stat-box--blue { background: var(--blue); }
+  .stat-box--teal { background: #1eadaa; }
+  .stat-box--grey { background: var(--navy-md); }
+  .stat-box__num { font-family: var(--font-d); font-size: 2.8rem; font-weight: 700;
+                    color: white; line-height: 1; margin-bottom: 8px; }
+  .stat-box__label { color: rgba(255,255,255,.75); font-size: .88rem; line-height: 1.4; }
+  .stat-box__icon { position: absolute; top: 16px; right: 16px; opacity: .2; }
+  .stat-box__icon svg { width: 40px; height: 40px; color: white; }
 
-  /* ── Domain search image column ── */
-  .domain-img-wrap {
-    border-radius: 16px; overflow: hidden; height: 100%; min-height: 200px;
-    position: relative;
+  /* Support channels */
+  .support-card {
+    background: rgba(255,255,255,.05); border: 1px solid var(--border-dk);
+    border-radius: var(--radius); padding: 24px; text-align: center;
+    transition: var(--tr); height: 100%;
   }
-  .domain-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block;
-                         filter: brightness(.65); }
-  .domain-img-wrap__label {
-    position: absolute; bottom: 20px; left: 20px;
-    background: var(--orange); color: white; font-weight: 700; font-size: .85rem;
-    padding: 6px 14px; border-radius: 100px;
-  }
+  .support-card:hover { background: rgba(67,112,170,.12); border-color: rgba(191,207,221,.25); }
+  .support-card__icon { width: 52px; height: 52px; border-radius: 14px;
+                          background: rgba(67,112,170,.15); display: flex;
+                          align-items: center; justify-content: center; margin: 0 auto 14px; }
+  .support-card__icon svg { color: var(--pale); }
+  .support-card__title { font-family: var(--font-d); font-weight: 700; font-size: .95rem;
+                           color: white; margin-bottom: 8px; }
+  .support-card__desc { color: var(--muted); font-size: .82rem; line-height: 1.55; }
 
-  /* ── FAQ ── */
-  .faq__list { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; }
-  .faq__item { border: 1.5px solid var(--pale); border-radius: 16px; overflow: hidden; }
-  .faq__question {
+  /* ──────────────────────────────────────────────
+     9. CLIENT PRIORITY
+  ────────────────────────────────────────────── */
+  .priority { background: var(--white); }
+  .priority__card {
+    border: 1.5px solid var(--pale); border-radius: var(--radius-lg);
+    padding: 32px 28px; height: 100%; transition: var(--tr);
+  }
+  .priority__card:hover { border-color: var(--blue); transform: translateY(-4px);
+                           box-shadow: var(--shadow); }
+  .priority__icon { width: 58px; height: 58px; border-radius: 16px;
+                     background: rgba(67,112,170,.1); display: flex; align-items: center;
+                     justify-content: center; margin-bottom: 20px; }
+  .priority__icon svg { color: var(--blue); }
+  .priority__title { font-family: var(--font-d); font-size: 1.1rem; font-weight: 700;
+                      color: var(--navy); margin-bottom: 10px; }
+  .priority__desc { color: var(--muted); font-size: .88rem; line-height: 1.7; }
+  .priority__desc strong { color: var(--navy); }
+
+  /* ──────────────────────────────────────────────
+     10. SECURITY
+  ────────────────────────────────────────────── */
+  .security { background: var(--grey-bg); }
+  .security__list { list-style: none; padding: 0; margin: 0;
+                     display: flex; flex-direction: column; gap: 14px; }
+  .security__list li {
+    background: var(--white); border: 1.5px solid var(--pale); border-radius: var(--radius);
+    padding: 18px 22px; display: flex; align-items: flex-start; gap: 14px;
+    transition: var(--tr);
+  }
+  .security__list li:hover { border-color: var(--blue); transform: translateX(4px); }
+  .security__list li svg { color: var(--blue); flex-shrink: 0; margin-top: 2px; }
+  .security__list li .text strong { display: block; font-weight: 700; color: var(--navy);
+                                     margin-bottom: 3px; font-size: .9rem; }
+  .security__list li .text span { color: var(--muted); font-size: .82rem; line-height: 1.55; }
+  .security__visual { border-radius: var(--radius-lg); overflow: hidden;
+                       height: 100%; min-height: 320px; position: relative; }
+  .security__visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .security__visual-badge {
+    position: absolute; bottom: 24px; left: 24px; right: 24px;
+    background: rgba(18,36,87,.88); backdrop-filter: blur(8px);
+    border: 1px solid rgba(191,207,221,.2); border-radius: 12px; padding: 16px 20px;
+  }
+  .security__visual-badge strong { color: white; display: block; font-weight: 700;
+                                     font-size: .95rem; margin-bottom: 4px; }
+  .security__visual-badge span { color: var(--muted); font-size: .8rem; }
+
+  /* ──────────────────────────────────────────────
+     11. TESTIMONIALS
+  ────────────────────────────────────────────── */
+  .testimonials { background: var(--navy); }
+  .testi-card {
+    background: var(--navy-md); border: 1px solid var(--border-dk);
+    border-radius: var(--radius-lg); padding: 32px; height: 100%;
+    position: relative; overflow: hidden; transition: var(--tr);
+  }
+  .testi-card:hover { border-color: rgba(191,207,221,.25); transform: translateY(-4px); }
+  .testi-card__quote { color: var(--blue-lt); font-size: 3rem; font-family: Georgia, serif;
+                        line-height: 1; margin-bottom: 16px; opacity: .6; }
+  .testi-card__text { color: rgba(255,255,255,.65); font-size: .9rem; line-height: 1.75;
+                       margin-bottom: 24px; font-style: italic; }
+  .testi-card__author { display: flex; align-items: center; gap: 12px; }
+  .testi-card__avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden;
+                          border: 2px solid var(--border-dk); flex-shrink: 0; }
+  .testi-card__avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .testi-card__name { font-weight: 700; color: white; font-size: .9rem; }
+  .testi-card__company { color: var(--muted); font-size: .78rem; }
+  .testi-card__stars { color: #f59e0b; font-size: .9rem; margin-bottom: 16px; }
+
+  /* ──────────────────────────────────────────────
+     12. FAQ
+  ────────────────────────────────────────────── */
+  .faq { background: var(--white); }
+  .faq__cats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+  .faq__cat { padding: 7px 18px; border-radius: 100px; border: 1.5px solid var(--pale);
+               font-size: .82rem; font-weight: 600; cursor: pointer; transition: var(--tr);
+               background: none; font-family: var(--font-b); color: var(--muted); }
+  .faq__cat.active, .faq__cat:hover { border-color: var(--blue); color: var(--blue);
+                                       background: rgba(67,112,170,.06); }
+  .faq__item { border: 1.5px solid var(--pale); border-radius: var(--radius); overflow: hidden;
+               margin-bottom: 10px; }
+  .faq__q {
     width: 100%; background: none; border: none; text-align: left;
-    padding: 20px 24px; font-family: var(--font-body); font-size: .95rem; font-weight: 600;
+    padding: 18px 22px; font-family: var(--font-b); font-size: .9rem; font-weight: 600;
     color: var(--navy); cursor: pointer; display: flex; justify-content: space-between;
-    align-items: center; gap: 16px; transition: var(--transition);
+    align-items: center; gap: 16px; transition: var(--tr);
   }
-  .faq__question:hover { color: var(--orange); }
-  .faq__question svg { flex-shrink: 0; transition: transform .3s ease; }
-  .faq__question[aria-expanded="true"] svg { transform: rotate(180deg); }
-  .faq__answer { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
-  .faq__answer.open { max-height: 200px; }
-  .faq__answer-inner { padding: 0 24px 20px; color: var(--muted); font-size: .9rem; line-height: 1.7; }
+  .faq__q:hover { color: var(--blue); }
+  .faq__q svg { flex-shrink: 0; transition: transform .32s ease; }
+  .faq__q[aria-expanded="true"] svg { transform: rotate(45deg); }
+  .faq__a { max-height: 0; overflow: hidden; transition: max-height .36s ease; }
+  .faq__a.open { max-height: 240px; }
+  .faq__a-inner { padding: 0 22px 18px; color: var(--muted); font-size: .88rem;
+                   line-height: 1.72; }
 
-  /* ── CTA Banner ── */
+  /* ──────────────────────────────────────────────
+     13. CTA BANNER
+  ────────────────────────────────────────────── */
   .cta-banner {
     background: linear-gradient(135deg, var(--navy) 0%, var(--navy-md) 100%);
-    border-radius: 24px; padding: 60px 52px; display: flex;
-    justify-content: space-between; align-items: center; gap: 30px;
-    position: relative; overflow: hidden;
+    border-radius: var(--radius-lg); padding: 60px 52px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 24px; position: relative; overflow: hidden;
   }
   .cta-banner::before {
-    content: ''; position: absolute; right: -40px; top: -40px;
-    width: 250px; height: 250px; border-radius: 50%;
-    background: rgba(191,207,221,.08); pointer-events: none;
+    content: ''; position: absolute; right: -60px; top: -60px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: rgba(67,112,170,.12); pointer-events: none;
   }
-  .cta-banner__title { font-family: var(--font-display); font-size: 2rem;
-                       font-weight: 700; color: white; }
-  .cta-banner__sub   { color: rgba(255,255,255,.6); font-size: 1rem; margin-top: 8px; }
-  .cta-banner__btn   { background: var(--orange); color: white; border-radius: 100px;
-                       padding: 14px 32px; font-weight: 700; font-size: .95rem;
-                       white-space: nowrap; transition: var(--transition); display: inline-block; }
-  .cta-banner__btn:hover { background: var(--pale); color: var(--navy); transform: translateY(-3px);
-                           box-shadow: 0 16px 40px rgba(191,207,221,.25); }
+  .cta-banner__title { font-family: var(--font-d); font-size: 2rem; font-weight: 700;
+                        color: white; position: relative; z-index: 1; }
+  .cta-banner__sub { color: rgba(255,255,255,.5); font-size: .95rem; margin-top: 8px;
+                      position: relative; z-index: 1; }
+  .cta-banner__actions { display: flex; gap: 12px; flex-wrap: wrap; flex-shrink: 0;
+                           position: relative; z-index: 1; }
 
   /* ── Responsive ── */
-  @media (max-width: 900px) {
-    .hero__grid { grid-template-columns: 1fr; }
-    .hero__card-wrap { display: none; }
-    .pricing__grid { grid-template-columns: 1fr; }
-    .pricing__card--featured { transform: none; }
-    .stats__grid { grid-template-columns: repeat(2, 1fr); }
-    .why__grid { grid-template-columns: 1fr 1fr; }
-    .domain-search__inner { grid-template-columns: 1fr; padding: 36px 28px; }
+  @media (max-width: 991px) {
+    .hero__float-card { display: none; }
     .cta-banner { flex-direction: column; text-align: center; padding: 40px 28px; }
-    .features-strip__list { justify-content: flex-start; }
-    .split-section__grid { grid-template-columns: 1fr; }
-    .cms__visual { height: 240px; }
+    .managed__feat-grid { grid-template-columns: 1fr 1fr; }
+    .steps__connector { display: none; }
   }
-  @media (max-width: 600px) {
-    .why__grid { grid-template-columns: 1fr; }
-    .stats__grid { grid-template-columns: 1fr 1fr; }
-    .tic-section { padding: 60px 0; }
-    .split-card { min-height: 300px; }
+  @media (max-width: 767px) {
+    .w-section { padding: 60px 0; }
+    .hero { padding: 70px 0 50px; min-height: auto; }
+    .hero__title { font-size: 2.4rem; }
+    .strip__list { justify-content: flex-start; }
+    .managed__feat-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  }
+  @media (max-width: 575px) {
+    .hero__img-wrap { display: none; }
+    .managed__feat-grid { grid-template-columns: 1fr; }
   }
 </style>
 
 {{-- ================================================================
-     HERO
+     1. HERO
 ================================================================ --}}
-<section class="hero" style="background-image: url('{{ asset('assets/images/hebergement.jpg') }}'); background-size: cover; background-position: center;">
-  {{-- Overlay to maintain dark navy tone over the photo --}}
-  <div style="position:absolute;inset:0;background:rgba(18,36,87,.82);z-index:0;pointer-events:none;"></div>
-  <div class="tic-container">
-    <div class="hero__grid">
+<section class="hero" aria-label="Section principale">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__blob-1" aria-hidden="true"></div>
+  <div class="hero__blob-2" aria-hidden="true"></div>
 
-      {{-- Left: Copy --}}
-      <div class="hero__content">
-        <div class="hero__eyebrow">
-          <div class="hero__live-dot"></div>
-          <span>Disponibilité garantie 99,99%</span>
+  <div class="container">
+    <div class="row align-items-center g-5">
+
+      {{-- Copy --}}
+      <div class="col-lg-6 hero__content">
+        <div class="hero__eyebrow fade-up">
+          <div class="hero__dot" aria-hidden="true"></div>
+          <span>Hébergeur professionnel depuis 11 ans</span>
         </div>
 
-        <h1 class="hero__heading">
-          Hébergez votre site<br>avec <em>la puissance</em><br>et la sécurité
+        <h1 class="hero__title fade-up fade-up-d1">
+          DÉCOUVREZ<br>UN HÉBERGEMENT<br><span class="accent">WEB PUISSANT</span>
         </h1>
 
-        <p class="hero__desc">
-          Des solutions d'hébergement web professionnelles, conçues pour les entreprises africaines. Performance, fiabilité et support 24h/7j inclus.
+        <p class="hero__tagline fade-up fade-up-d2">
+          <span>Hébergement mutualisé</span> | <span>VPS</span> |
+          <span>Serveur dédié</span> | <span>Hébergement revendeur</span>
         </p>
 
-        <div class="hero__actions">
-          <a href="#pricing" class="tic-btn tic-btn--primary">
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            Démarrer maintenant
+        <p class="hero__desc fade-up fade-up-d2">
+          Depuis <strong style="color:rgba(255,255,255,.85)">11 ans</strong>, TICAFRIQUE accompagne
+          les professionnels du web vers le succès grâce à une large gamme de services d'hébergement
+          et <strong style="color:rgba(255,255,255,.85)">une assistance</strong> rapide et performante 24h/24 et 7j/7.
+        </p>
+
+        <div class="hero__actions fade-up fade-up-d3">
+          <a href="#services" class="w-btn w-btn--primary">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            Voir les produits
           </a>
-          <a href="#domain" class="tic-btn tic-btn--ghost">
-            Chercher un domaine
+          <a href="https://wa.me/22522002077" target="_blank" rel="noopener" class="w-btn w-btn--outline">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592"/></svg>
+            Planifiez un rappel
           </a>
         </div>
 
-        <div class="hero__trust">
-          {{-- Placeholder avatars with initials --}}
-          <div class="hero__avatars" aria-hidden="true">
-            {{-- Placez vos vraies photos clients dans public/assets/images/ --}}
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%234370aa'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='50' fill='white' font-family='Arial'%3EA%3C/text%3E%3C/svg%3E" alt="Client satisfait 1" width="36" height="36" loading="lazy">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%232a4d84'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='50' fill='white' font-family='Arial'%3EB%3C/text%3E%3C/svg%3E" alt="Client satisfait 2" width="36" height="36" loading="lazy">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2384a1c0'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='50' fill='white' font-family='Arial'%3EC%3C/text%3E%3C/svg%3E" alt="Client satisfait 3" width="36" height="36" loading="lazy">
+        <div class="hero__since fade-up fade-up-d4">
+          <div>
+            <div class="hero__since-num">11<span>ans</span></div>
           </div>
-          <div class="hero__trust-text">
-            <strong>+ 860 clients satisfaits</strong>
-            Rejoignez notre communauté
+          <div class="hero__since-text">
+            <strong>Expertise reconnue</strong>
+            Accompagnement des professionnels<br>du web en Côte d'Ivoire et en Afrique
+          </div>
+          <div class="ms-auto">
+            <div class="hero__since-num">860<span>+</span></div>
+            <div class="hero__since-text" style="text-align:right;">
+              <strong>Clients satisfaits</strong>
+            </div>
           </div>
         </div>
       </div>
 
-      {{-- Right: Pricing preview card --}}
-      <div class="hero__card-wrap">
-        <div class="hero__card">
-          <span class="hero__card-badge">Populaire</span>
-
-          {{-- Plan toggle --}}
-          <div class="hero__card-slider" role="tablist">
-            <button class="hero__card-tab active" onclick="switchHeroPlan(this,'presence')">Présence</button>
-            <button class="hero__card-tab" onclick="switchHeroPlan(this,'confort')">Confort</button>
-            <button class="hero__card-tab" onclick="switchHeroPlan(this,'prestige')">Prestige</button>
-          </div>
-
-          <div class="hero__card-label">Hébergement Linux / an</div>
-          <div class="hero__card-price" id="hero-price">
-            <sup>FCFA </sup>54 000<sub>/an</sub>
-          </div>
-
-          <div class="hero__card-feats" id="hero-feats">
-            <div class="hero__card-feat">
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              100 Go d'espace disque
+      {{-- Visual --}}
+      <div class="col-lg-6 hero__visual fade-up fade-up-d2">
+        <div class="hero__float-card">
+          <div class="num">99<span>%</span></div>
+          <div class="lbl">Disponibilité<br>garantie</div>
+        </div>
+        <div class="hero__img-wrap">
+          <img src="https://picsum.photos/seed/hero-web/700/440"
+               alt="Hébergement web professionnel TICAFRIQUE"
+               loading="eager">
+          <div class="hero__img-badge">
+            <div class="hero__img-badge-icon">
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
-            <div class="hero__card-feat">
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              100 comptes email POP
-            </div>
-            <div class="hero__card-feat">
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Bande passante 1 000 Go
-            </div>
-            <div class="hero__card-feat">
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              cPanel + 3 bases de données
-            </div>
-            <div class="hero__card-feat">
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Remboursé sous 30 jours
+            <div class="hero__img-badge-text">
+              <strong>Activé en quelques minutes</strong>
+              <span>cPanel + SSL + Sauvegardes inclus</span>
             </div>
           </div>
-
-          <a href="{{ route('hebergement.commander') }}" class="tic-btn tic-btn--primary" style="width:100%;justify-content:center;" id="hero-cta">
-            Commander ce pack
-          </a>
         </div>
       </div>
 
@@ -496,322 +605,661 @@
 {{-- ================================================================
      FEATURES STRIP
 ================================================================ --}}
-<div class="features-strip">
-  <div class="tic-container">
-    <div class="features-strip__list">
-      <div class="features-strip__item">
-        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        SSL Gratuit inclus
+<div class="strip" aria-label="Points clés">
+  <div class="container">
+    <div class="strip__list">
+      <div class="strip__item">
+        <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        SSL Gratuit
       </div>
-      <div class="features-strip__item">
-        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+      <div class="strip__item">
+        <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
         Sauvegardes quotidiennes
       </div>
-      <div class="features-strip__item">
-        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+      <div class="strip__item">
+        <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
         Support 24h/7j
       </div>
-      <div class="features-strip__item">
-        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        Installation CMS en 1 clic
+      <div class="strip__item">
+        <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Installation CMS 1 clic
       </div>
-      <div class="features-strip__item">
-        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-        Satisfait ou remboursé 30j
+      <div class="strip__item">
+        <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+        Remboursé sous 30j
+      </div>
+      <div class="strip__item">
+        <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+        cPanel inclus
       </div>
     </div>
   </div>
 </div>
 
 {{-- ================================================================
-     DOMAIN SEARCH
+     2. SERVICES — Tabbed pricing grid
 ================================================================ --}}
-<section class="domain-search" id="domain">
-  <div class="tic-container">
-    <div class="domain-search__inner">
+<section class="w-section services" id="services" aria-labelledby="services-heading">
+  <div class="container">
 
-      {{-- Left: form --}}
-      <div style="position:relative;z-index:1;">
-        <span class="tic-tag tic-tag--light">Noms de domaine</span>
-        <h2 class="tic-heading" style="color:white;">Trouvez le domaine<br>parfait pour votre projet</h2>
-        <p class="tic-subtext tic-subtext--light">Recherchez parmi des centaines d'extensions. À partir de <strong style="color:var(--orange)">8 000 FCFA/an</strong>.</p>
-
-        <div class="domain-search__form">
-          <input class="domain-search__input" type="text" placeholder="monentreprise" id="domain-input" autocomplete="off">
-          <button class="tic-btn tic-btn--primary" onclick="searchDomain()">
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            Chercher
-          </button>
-        </div>
-
-        <div class="domain-search__exts" id="ext-chips">
-          <span class="ext-chip active" data-ext=".ci">.ci</span>
-          <span class="ext-chip active" data-ext=".com">.com</span>
-          <span class="ext-chip" data-ext=".net">.net</span>
-          <span class="ext-chip" data-ext=".org">.org</span>
-          <span class="ext-chip" data-ext=".info">.info</span>
-          <span class="ext-chip" data-ext=".biz">.biz</span>
-          <span class="ext-chip" data-ext=".co">.co</span>
-        </div>
-      </div>
-
-      {{-- Right: price list --}}
-      <div class="domain-search__prices">
-        {{-- Image bannière domaine --}}
-        <div class="domain-img-wrap" style="margin-bottom:16px;height:140px;">
-          <img src="{{ asset('assets/images/domaine.png') }}" alt="Nom de domaine" loading="lazy">
-          <span class="domain-img-wrap__label">Transfert disponible</span>
-        </div>
-        <div class="domain-price-card">
-          <span class="domain-price-card__ext">.ci</span>
-          <span><span class="domain-price-card__price">8 000 FCFA</span><span class="domain-price-card__yr">/an</span></span>
-        </div>
-        <div class="domain-price-card">
-          <span class="domain-price-card__ext">.com</span>
-          <span><span class="domain-price-card__price">11 800 FCFA</span><span class="domain-price-card__yr">/an</span></span>
-        </div>
-        <div class="domain-price-card">
-          <span class="domain-price-card__ext">.net</span>
-          <span><span class="domain-price-card__price">14 500 FCFA</span><span class="domain-price-card__yr">/an</span></span>
-        </div>
-        <div class="domain-price-card">
-          <span class="domain-price-card__ext">.org</span>
-          <span><span class="domain-price-card__price">13 000 FCFA</span><span class="domain-price-card__yr">/an</span></span>
-        </div>
-        <div class="domain-price-card">
-          <span class="domain-price-card__ext">.biz</span>
-          <span><span class="domain-price-card__price">15 000 FCFA</span><span class="domain-price-card__yr">/an</span></span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-{{-- ================================================================
-     STATS
-================================================================ --}}
-<section class="stats">
-  <div class="tic-container">
-    <div class="stats__grid">
-      <div class="stats__item">
-        <div class="stats__num">551<span>+</span></div>
-        <div class="stats__label">Sites hébergés</div>
-      </div>
-      <div class="stats__item">
-        <div class="stats__num">860<span>+</span></div>
-        <div class="stats__label">Clients satisfaits</div>
-      </div>
-      <div class="stats__item">
-        <div class="stats__num">99<span>.99%</span></div>
-        <div class="stats__label">Disponibilité garantie</div>
-      </div>
-      <div class="stats__item">
-        <div class="stats__num">128<span>+</span></div>
-        <div class="stats__label">Domaines enregistrés</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-{{-- ================================================================
-     PRICING
-================================================================ --}}
-<section class="tic-section pricing" id="pricing">
-  <div class="tic-container">
-    <div style="text-align:center;">
-      <span class="tic-tag">Tarifs</span>
-      <h2 class="tic-heading">Packs d'hébergement<br><em>Linux</em> adaptés à chaque besoin</h2>
-      <p class="tic-subtext" style="max-width:560px;margin:0 auto;">
-        Choisissez le plan qui correspond à vos objectifs. Tous les plans incluent cPanel, SSL et sauvegardes quotidiennes.
+    <div class="text-center mb-5 fade-up">
+      <span class="w-tag w-tag--blue">Nos solutions</span>
+      <h2 class="w-heading" id="services-heading">
+        Une gamme de solutions <em>robustes</em><br>pour tous les professionnels
+      </h2>
+      <p class="w-sub" style="max-width:560px;margin:0 auto;">
+        Vous ne savez pas quel forfait d'hébergement vous convient ? <a href="https://wa.me/22522002077" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600;">Contactez-nous sur WhatsApp</a>.
       </p>
     </div>
 
-    <div class="pricing__grid">
+    {{-- Tabs --}}
+    <div class="services__tabs fade-up" role="tablist" aria-label="Catégories de services">
+      <button class="services__tab active" role="tab" aria-selected="true"
+              aria-controls="tab-servers" onclick="switchTab(this,'tab-servers')">
+        Serveurs <span class="badge-sale">SALE</span>
+      </button>
+      <button class="services__tab" role="tab" aria-selected="false"
+              aria-controls="tab-cloud" onclick="switchTab(this,'tab-cloud')">
+        Hébergement cloud
+      </button>
+      <button class="services__tab" role="tab" aria-selected="false"
+              aria-controls="tab-web" onclick="switchTab(this,'tab-web')">
+        Hébergement Web
+      </button>
+    </div>
 
-      {{-- Plan 1: Présence --}}
-      <div class="pricing__card">
-        <div class="pricing__card-head">
-          <div class="pricing__plan-name">Présence</div>
-          <div class="pricing__price"><sup>FCFA </sup>54 000</div>
-          <div class="pricing__price-yr">par an TTC</div>
+    {{-- Panel: Serveurs --}}
+    <div class="services__panel active" id="tab-servers" role="tabpanel">
+      <div class="row g-4">
+
+        {{-- Expert col --}}
+        <div class="col-lg-3 fade-up">
+          <div class="expert-col">
+            <div>
+              <h3 class="expert-col__title">Une équipe d'<em>experts</em> à votre service</h3>
+              <p class="expert-col__desc">
+                Nous sommes conscients des défis liés au métier d'hébergeur et de l'importance cruciale de l'infrastructure.
+                Notre équipe répond rapidement et efficacement dans la langue de votre choix.
+              </p>
+            </div>
+            <div class="expert-col__img">
+              <img src="https://picsum.photos/seed/support-team/380/180" alt="Équipe support TICAFRIQUE" loading="lazy">
+            </div>
+            <a href="https://wa.me/22522002077" target="_blank" rel="noopener" class="w-btn w-btn--outline" style="width:100%;justify-content:center;">
+              <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326z"/></svg>
+              Planifiez un rappel
+            </a>
+          </div>
         </div>
-        <div class="pricing__card-body">
-          <ul class="pricing__feats">
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 100 Go espace disque</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 1 domaine hébergeable</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 1 000 Go bande passante</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 100 comptes email POP</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 3 bases de données</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Support technique inclus</li>
-            <li class="disabled"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg> Multi-domaines</li>
-          </ul>
-          <a href="{{ route('hebergement.commander') }}" class="pricing__card-btn pricing__card-btn--outline">Commander →</a>
+
+        {{-- VPS --}}
+        <div class="col-lg-3 col-md-6 fade-up fade-up-d1">
+          <div class="price-card">
+            <div class="price-card__head">
+              <div class="price-card__icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path stroke-linecap="round" d="M6 6h.01M6 18h.01"/></svg>
+              </div>
+              <div class="price-card__name">Hébergement de serveurs VPS</div>
+              <div class="price-card__tagline">VPS SSD haute performance basé sur KVM</div>
+            </div>
+            <div class="price-card__body">
+              <div class="price-card__from">À partir de</div>
+              <div class="price-card__price">
+                <sup>FCFA </sup>2 400<sub>/mo</sub>
+              </div>
+              <a href="{{ route('hebergement.index_serveur_dedie') }}" class="price-card__link">
+                Consulter les plans
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {{-- VPS géré --}}
+        <div class="col-lg-3 col-md-6 fade-up fade-up-d2">
+          <div class="price-card">
+            <div class="price-card__head">
+              <div class="price-card__icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+              </div>
+              <div class="price-card__name">Hébergement VPS géré</div>
+              <div class="price-card__tagline">VPS haute performance avec SSD et HDD, basé sur KVM</div>
+            </div>
+            <div class="price-card__body">
+              <div class="price-card__from">À partir de</div>
+              <div class="price-card__price">
+                <sup>FCFA </sup>50 000<sub>/mo</sub>
+              </div>
+              <a href="{{ route('hebergement.index_serveur_dedie') }}" class="price-card__link">
+                Consulter les plans
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {{-- Serveur dédié --}}
+        <div class="col-lg-3 col-md-6 fade-up fade-up-d3">
+          <div class="price-card">
+            <div class="price-card__head">
+              <div class="price-card__icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h7"/></svg>
+              </div>
+              <div class="price-card__name">Serveur dédié</div>
+              <div class="price-card__tagline">Performances et sécurité optimales pour votre activité</div>
+            </div>
+            <div class="price-card__body">
+              <div class="price-card__from">À partir de</div>
+              <div class="price-card__price">
+                <sup>FCFA </sup>62 000<sub>/mo</sub>
+              </div>
+              <a href="{{ route('hebergement.index_serveur_dedie') }}" class="price-card__link">
+                Consulter les plans
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {{-- Dédié géré --}}
+        <div class="col-lg-3 col-md-6 offset-lg-3 fade-up fade-up-d4">
+          <div class="price-card">
+            <div class="price-card__head">
+              <div class="price-card__icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+              </div>
+              <div class="price-card__name">Serveur dédié géré</div>
+              <div class="price-card__tagline">Services gérés et assistance experte pour votre hébergement</div>
+            </div>
+            <div class="price-card__body">
+              <div class="price-card__from">À partir de</div>
+              <div class="price-card__price">
+                <sup>FCFA </sup>110 000<sub>/mo</sub>
+              </div>
+              <a href="{{ route('hebergement.index_serveur_dedie') }}" class="price-card__link">
+                Consulter les plans
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>{{-- /row --}}
+    </div>{{-- /panel servers --}}
+
+    {{-- Panel: Cloud --}}
+    <div class="services__panel" id="tab-cloud" role="tabpanel">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6 fade-up">
+          <div class="price-card">
+            <div class="price-card__head">
+              <div class="price-card__icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+              </div>
+              <div class="price-card__name">Cloud Starter</div>
+              <div class="price-card__tagline">Idéal pour les PME et startups</div>
+            </div>
+            <div class="price-card__body">
+              <div class="price-card__from">À partir de</div>
+              <div class="price-card__price"><sup>FCFA </sup>15 000<sub>/mo</sub></div>
+              <a href="{{ route('hebergement.commander') }}" class="price-card__link">Consulter les plans <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 fade-up fade-up-d1">
+          <div class="price-card">
+            <div class="price-card__head">
+              <div class="price-card__icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18"/></svg>
+              </div>
+              <div class="price-card__name">Cloud Business</div>
+              <div class="price-card__tagline">Ressources dédiées et hautes performances</div>
+            </div>
+            <div class="price-card__body">
+              <div class="price-card__from">À partir de</div>
+              <div class="price-card__price"><sup>FCFA </sup>35 000<sub>/mo</sub></div>
+              <a href="{{ route('hebergement.commander') }}" class="price-card__link">Consulter les plans <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 fade-up fade-up-d2">
+          <div class="price-card">
+            <div class="price-card__head">
+              <div class="price-card__icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div class="price-card__name">Cloud Enterprise</div>
+              <div class="price-card__tagline">Infrastructure évolutive pour grandes entreprises</div>
+            </div>
+            <div class="price-card__body">
+              <div class="price-card__from">À partir de</div>
+              <div class="price-card__price"><sup>FCFA </sup>90 000<sub>/mo</sub></div>
+              <a href="{{ route('hebergement.commander') }}" class="price-card__link">Consulter les plans <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{-- Panel: Web --}}
+    <div class="services__panel" id="tab-web" role="tabpanel">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6 fade-up">
+          <div class="price-card">
+            <div class="price-card__head">
+              <div class="price-card__icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+              </div>
+              <div class="price-card__name">Présence</div>
+              <div class="price-card__tagline">Pour votre 1er site web</div>
+            </div>
+            <div class="price-card__body">
+              <div class="price-card__from">À partir de</div>
+              <div class="price-card__price"><sup>FCFA </sup>54 000<sub>/an</sub></div>
+              <a href="{{ route('hebergement.mutualise') }}" class="price-card__link">Consulter les plans <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 fade-up fade-up-d1">
+          <div class="price-card" style="border-color:var(--blue);box-shadow:0 16px 48px rgba(67,112,170,.2);">
+            <div class="price-card__head" style="background:var(--navy);">
+              <div class="price-card__icon" style="background:rgba(255,255,255,.1);">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"/></svg>
+              </div>
+              <div class="price-card__name" style="color:white;">Confort MDH Business</div>
+              <div class="price-card__tagline" style="color:var(--muted);">Recommandé pour les PME</div>
+            </div>
+            <div class="price-card__body">
+              <div class="price-card__from">À partir de</div>
+              <div class="price-card__price"><sup>FCFA </sup>90 000<sub>/an</sub></div>
+              <a href="{{ route('hebergement.mutualise') }}" class="price-card__link">Consulter les plans <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 fade-up fade-up-d2">
+          <div class="price-card">
+            <div class="price-card__head">
+              <div class="price-card__icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+              </div>
+              <div class="price-card__name">Prestige MHD PRO</div>
+              <div class="price-card__tagline">Solution complète pour grands sites</div>
+            </div>
+            <div class="price-card__body">
+              <div class="price-card__from">À partir de</div>
+              <div class="price-card__price"><sup>FCFA </sup>102 000<sub>/an</sub></div>
+              <a href="{{ route('hebergement.mutualise') }}" class="price-card__link">Consulter les plans <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{{-- ================================================================
+     3. MANAGED HOSTING FEATURES (VPS géré vs Dédié géré)
+================================================================ --}}
+<section class="w-section managed" aria-labelledby="managed-heading">
+  <div class="container">
+    <div class="text-center mb-5 fade-up">
+      <span class="w-tag w-tag--blue">Infogérance</span>
+      <h2 class="w-heading" id="managed-heading">Services d'hébergement <em>dédiés & VPS</em><br>en infogérance</h2>
+      <p class="w-sub" style="max-width:580px;margin:0 auto;">
+        Bénéficiez de performances optimales, d'une sécurité maximale et d'une assistance dédiée pour une gestion simplifiée de vos serveurs.
+      </p>
+    </div>
+
+    <div class="row g-4">
+
+      {{-- VPS géré --}}
+      <div class="col-md-6 fade-up">
+        <div class="managed__card">
+          <div class="managed__card-title">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path stroke-linecap="round" d="M6 6h.01M6 18h.01"/></svg>
+            Hébergement VPS géré
+          </div>
+          <div class="managed__feat-grid">
+            <div class="managed__feat">
+              <div class="managed__feat-icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div class="managed__feat-label">Convient aux sites de petite et moyenne taille</div>
+            </div>
+            <div class="managed__feat">
+              <div class="managed__feat-icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </div>
+              <div class="managed__feat-label">Gestion sécurité & mises à jour logicielles</div>
+            </div>
+            <div class="managed__feat">
+              <div class="managed__feat-icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div class="managed__feat-label">Configuration serveur, migration et plus encore</div>
+            </div>
+            <div class="managed__feat">
+              <div class="managed__feat-icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+              </div>
+              <div class="managed__feat-label">Assistance dédiée 24h/24 et 7j/7</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {{-- Plan 2: Confort (featured) --}}
-      <div class="pricing__card pricing__card--featured">
-        <div class="pricing__card-head">
-          <span class="pricing__popular">Recommandé</span>
-          <div class="pricing__plan-name">Confort MDH Business</div>
-          <div class="pricing__price"><sup>FCFA </sup>90 000</div>
-          <div class="pricing__price-yr">par an TTC</div>
-        </div>
-        <div class="pricing__card-body">
-          <ul class="pricing__feats">
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 300 Go espace disque</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 3 domaines hébergeables</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 3 000 Go bande passante</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 300 comptes email POP</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 10 bases de données</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Support prioritaire</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Multi-domaines inclus</li>
-          </ul>
-          <a href="{{ route('hebergement.commander') }}" class="pricing__card-btn">Commander →</a>
+      {{-- Dédié géré --}}
+      <div class="col-md-6 fade-up fade-up-d1">
+        <div class="managed__card">
+          <div class="managed__card-title">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h7"/></svg>
+            Hébergement dédié géré
+          </div>
+          <div class="managed__feat-grid">
+            <div class="managed__feat">
+              <div class="managed__feat-icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div class="managed__feat-label">Adapté aux sites à fort trafic</div>
+            </div>
+            <div class="managed__feat">
+              <div class="managed__feat-icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"/></svg>
+              </div>
+              <div class="managed__feat-label">Infrastructure haute performance</div>
+            </div>
+            <div class="managed__feat">
+              <div class="managed__feat-icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              </div>
+              <div class="managed__feat-label">Experts hébergement certifiés et formés</div>
+            </div>
+            <div class="managed__feat">
+              <div class="managed__feat-icon">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div class="managed__feat-label">Assistance avancée 24h/24 et 7j/7</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {{-- Plan 3: Prestige --}}
-      <div class="pricing__card">
-        <div class="pricing__card-head">
-          <div class="pricing__plan-name">Prestige MHD PRO</div>
-          <div class="pricing__price"><sup>FCFA </sup>102 000</div>
-          <div class="pricing__price-yr">par an TTC</div>
+    </div>
+  </div>
+</section>
+
+{{-- ================================================================
+     4. THREE STEPS
+================================================================ --}}
+<section class="w-section steps" id="get-started" aria-labelledby="steps-heading">
+  <div class="container">
+
+    <div class="text-center mb-5 fade-up">
+      <span class="w-tag w-tag--blue">Démarrage rapide</span>
+      <h2 class="w-heading" id="steps-heading">Mettez votre site web en ligne<br>en <em>trois étapes</em> simples</h2>
+      <p class="w-sub" style="max-width:600px;margin:0 auto;">
+        Nous vous aidons à concrétiser vos idées. Des meilleurs noms de domaine aux formules d'hébergement les plus abordables, nous sommes votre interlocuteur unique.
+      </p>
+    </div>
+
+    <div class="row g-4 align-items-center">
+
+      {{-- Step 1 --}}
+      <div class="col-md-4 fade-up">
+        <div class="step-card">
+          <div class="step-card__num" aria-label="Étape 1">1</div>
+          <img src="https://picsum.photos/seed/step-hosting/240/240"
+               alt="Choisir un forfait d'hébergement" class="step-card__img" loading="lazy">
+          <h3 class="step-card__title">Choisissez un forfait<br>d'hébergement adapté</h3>
+          <p class="step-card__desc">Choisissez le forfait adapté à vos besoins. Besoin d'aide ? Contactez nos experts en hébergement.</p>
         </div>
-        <div class="pricing__card-body">
-          <ul class="pricing__feats">
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 750 Go espace disque</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 10 domaines hébergeables</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Bande passante illimitée</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Emails illimités</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 20 bases de données</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Support VIP dédié</li>
-            <li><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> 10 serveurs FTP privés</li>
-          </ul>
-          <a href="{{ route('hebergement.commander') }}" class="pricing__card-btn pricing__card-btn--outline">Commander →</a>
+      </div>
+
+      {{-- Connector --}}
+      <div class="col-md-auto d-none d-md-block steps__connector fade-up fade-up-d1">
+        <svg width="40" height="16" viewBox="0 0 40 16" fill="none" aria-hidden="true">
+          <path d="M0 8h36M30 2l8 6-8 6" stroke="var(--pale)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      {{-- Step 2 --}}
+      <div class="col-md-4 fade-up fade-up-d2">
+        <div class="step-card">
+          <div class="step-card__num" aria-label="Étape 2">2</div>
+          <img src="https://picsum.photos/seed/step-domain/240/240"
+               alt="Rechercher un nom de domaine" class="step-card__img" loading="lazy">
+          <h3 class="step-card__title">Rechercher et acheter<br>un nom de domaine</h3>
+          <p class="step-card__desc">Choisissez un nom de domaine simple, mémorable et qui laisse une impression durable.</p>
+        </div>
+      </div>
+
+      {{-- Connector --}}
+      <div class="col-md-auto d-none d-md-block steps__connector fade-up fade-up-d3">
+        <svg width="40" height="16" viewBox="0 0 40 16" fill="none" aria-hidden="true">
+          <path d="M0 8h36M30 2l8 6-8 6" stroke="var(--pale)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      {{-- Step 3 --}}
+      <div class="col-md-4 fade-up fade-up-d4">
+        <div class="step-card">
+          <div class="step-card__num" aria-label="Étape 3">3</div>
+          <img src="https://picsum.photos/seed/step-launch/240/240"
+               alt="Mettre en ligne son site web" class="step-card__img" loading="lazy">
+          <h3 class="step-card__title">Téléchargez les données<br>de votre site web</h3>
+          <p class="step-card__desc">Téléchargez vos fichiers ou créez un site via WordPress. Configurez vos DNS et mettez votre site en ligne.</p>
         </div>
       </div>
 
     </div>
 
-    {{-- Custom plan CTA --}}
-    <div style="text-align:center;margin-top:36px;">
-      <p style="color:var(--muted);font-size:.9rem;margin-bottom:14px;">Besoin d'un plan sur mesure pour votre infrastructure ?</p>
-      <a href="{{ route('hebergement.commander') }}" class="tic-btn tic-btn--dark">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-        Contacter pour un plan personnalisé
+    <div class="text-center mt-5 fade-up fade-up-d3">
+      <a href="{{ route('hebergement.commander') }}" class="w-btn w-btn--primary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Commencer maintenant
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{{-- ================================================================
+     5. PERFORMANCE (split section)
+================================================================ --}}
+<section class="w-section perf" aria-labelledby="perf-heading">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+
+      {{-- Image --}}
+      <div class="col-lg-5 fade-up">
+        <div class="perf__img-wrap">
+          <img src="https://picsum.photos/seed/server-data/600/420"
+               alt="Performances d'hébergement cloud TICAFRIQUE" loading="lazy">
+          <div class="perf__img-overlay" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      {{-- Content --}}
+      <div class="col-lg-7 fade-up fade-up-d1">
+        <span class="w-tag w-tag--light">Infrastructure</span>
+        <h2 class="w-heading w-heading--light" id="perf-heading">
+          Des performances d'hébergement<br><em>inégalées</em> qui vous font briller
+        </h2>
+        <p class="w-sub w-sub--light">Vitesse, fiabilité et contrôle supérieur, le tout dans un seul appareil !</p>
+
+        <ul class="perf__list" role="list">
+          <li>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Serveurs haute performance (SSD NVMe)
+          </li>
+          <li>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Mesures de sécurité avancées
+          </li>
+          <li>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Ressources évolutives à la demande
+          </li>
+          <li>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Services d'hébergement gérés
+          </li>
+          <li>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Assistance dédiée 24h/24 et 7j/7
+          </li>
+          <li>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Centres de données mondiaux
+          </li>
+          <li>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Aide gratuite à la migration
+          </li>
+          <li>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            Garantie de remboursement de 30 jours
+          </li>
+        </ul>
+
+        <a href="{{ route('hebergement.commander') }}" class="w-btn w-btn--primary" style="margin-top:8px;">
+          Voir tous les produits
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{{-- ================================================================
+     6. FEATURES GRID (6-up)
+================================================================ --}}
+<section class="w-section feats" aria-labelledby="feats-heading">
+  <div class="container">
+    <div class="text-center mb-5 fade-up">
+      <span class="w-tag w-tag--blue">Avantages inclus</span>
+      <h2 class="w-heading" id="feats-heading">Un hébergement qui répond à tous<br>les besoins des <em>professionnels</em></h2>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-lg-4 col-md-6 fade-up">
+        <div class="feat-card">
+          <div class="feat-card__icon">
+            <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div class="feat-card__title">Installation facile</div>
+          <div class="feat-card__desc">Notre plateforme est conçue pour mettre votre site web en ligne rapidement et sans tracas, en quelques clics.</div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 fade-up fade-up-d1">
+        <div class="feat-card">
+          <div class="feat-card__icon">
+            <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div class="feat-card__title">WHM et cPanel</div>
+          <div class="feat-card__desc">La gestion de votre hébergement devient un jeu d'enfant avec WHM et cPanel, des outils simples et efficaces.</div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 fade-up fade-up-d2">
+        <div class="feat-card">
+          <div class="feat-card__icon">
+            <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          </div>
+          <div class="feat-card__title">Migration libre</div>
+          <div class="feat-card__desc">La migration de votre site est facile grâce à notre service gratuit : sans stress, sans interruption, sans perte de données.</div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 fade-up fade-up-d1">
+        <div class="feat-card">
+          <div class="feat-card__icon">
+            <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div class="feat-card__title">Softaculous</div>
+          <div class="feat-card__desc">Softaculous simplifie la création de sites avec plus de 400 applications pour blogs, forums et boutiques en ligne.</div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 fade-up fade-up-d2">
+        <div class="feat-card">
+          <div class="feat-card__icon">
+            <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+          </div>
+          <div class="feat-card__title">Protection Cloudflare</div>
+          <div class="feat-card__desc">Cloudflare optimise votre domaine et votre hébergement grâce à une sécurité et des performances de vitesse de pointe.</div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 fade-up fade-up-d3">
+        <div class="feat-card">
+          <div class="feat-card__icon">
+            <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <div class="feat-card__title">Disponibilité de 99,99%</div>
+          <div class="feat-card__desc">Une garantie de disponibilité de 99,99 % assure à vos plans d'hébergement un service constant et fiable.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-5 fade-up">
+      <a href="{{ route('hebergement.commander') }}" class="w-btn w-btn--light-outline">
+        Voir tous les produits →
       </a>
     </div>
   </div>
 </section>
 
 {{-- ================================================================
-     WHY US
+     7. CLIENT PRIORITY
 ================================================================ --}}
-<section class="tic-section tic-section--grey">
-  <div class="tic-container">
-    <div style="text-align:center;">
-      <span class="tic-tag">Pourquoi TICAFRIQUE</span>
-      <h2 class="tic-heading">Une infrastructure conçue<br>pour <em>performer</em></h2>
+<section class="w-section priority" aria-labelledby="priority-heading">
+  <div class="container">
+    <div class="text-center mb-5 fade-up">
+      <span class="w-tag w-tag--blue">Pourquoi TICAFRIQUE</span>
+      <h2 class="w-heading" id="priority-heading">Nos clients sont notre priorité.<br>C'est pourquoi vous ne méritez que <em>le meilleur</em>.</h2>
     </div>
 
-    <div class="why__grid">
-      <div class="why__card">
-        <div class="why__icon">
-          <img src="{{ asset('assets/images/chargement.png') }}" alt="Chargement rapide" loading="lazy">
-        </div>
-        <div class="why__title">Chargement ultra-rapide</div>
-        <div class="why__desc">Serveurs SSD NVMe et réseau optimisé pour offrir des temps de réponse inférieurs à 200ms. Vos visiteurs ne quitteront plus votre site.</div>
-      </div>
-      <div class="why__card">
-        <div class="why__icon">
-          <img src="{{ asset('assets/images/disponibilite.png') }}" alt="Sécurité" loading="lazy">
-        </div>
-        <div class="why__title">Sécurité renforcée</div>
-        <div class="why__desc">SSL gratuit, pare-feu applicatif, protection DDoS et sauvegardes quotidiennes automatiques pour protéger vos données 24h/24.</div>
-      </div>
-      <div class="why__card">
-        <div class="why__icon">
-          <img src="{{ asset('assets/images/cpanel.png') }}" alt="cPanel" loading="lazy">
-        </div>
-        <div class="why__title">cPanel intuitif</div>
-        <div class="why__desc">Gérez vos domaines, e-mails, bases de données et fichiers depuis un panneau de contrôle moderne, accessible en quelques clics.</div>
-      </div>
-      <div class="why__card">
-        <div class="why__icon">
-          <img src="{{ asset('assets/images/support.png') }}" alt="Support" loading="lazy">
-        </div>
-        <div class="why__title">Support 24h/7j</div>
-        <div class="why__desc">Notre équipe technique dédiée répond à chaque sollicitation avec une personne dédiée et des solutions personnalisées. Proactivité garantie.</div>
-      </div>
-      <div class="why__card">
-        <div class="why__icon">
-          <img src="{{ asset('assets/images/server.png') }}" alt="Sauvegarde" loading="lazy">
-        </div>
-        <div class="why__title">Sauvegardes quotidiennes</div>
-        <div class="why__desc">Restaurez votre site en un clic grâce à nos sauvegardes automatiques stockées sur le cloud. Zéro risque de perte de données.</div>
-      </div>
-      <div class="why__card">
-        <div class="why__icon">
-          <img src="{{ asset('assets/images/performance.png') }}" alt="Qualité de service" loading="lazy">
-        </div>
-        <div class="why__title">Remboursement 30 jours</div>
-        <div class="why__desc">Non satisfait dans les 30 jours suivant votre commande ? Nous vous remboursons intégralement, sans questions posées.</div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="row g-4">
 
-{{-- ================================================================
-     CMS / 1-CLICK INSTALL
-================================================================ --}}
-<section class="tic-section cms">
-  <div class="tic-container">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
-      <div>
-        <span class="tic-tag tic-tag--light">Installation en 1 clic</span>
-        <h2 class="tic-heading" style="color:white;">+400 applications<br>prêtes à l'emploi</h2>
-        <p class="tic-subtext tic-subtext--light">Grâce à Softaculous, installez WordPress, Joomla, PrestaShop ou n'importe quelle application en quelques secondes depuis votre cPanel.</p>
-        <a href="{{ route('hebergement.commander') }}" class="tic-btn tic-btn--primary" style="margin-top:24px;">
-          Démarrer maintenant
-        </a>
-
-        {{-- CMS logos avec images réelles --}}
-        <div class="cms__grid">
-          <div class="cms__logo">
-            <img src="{{ asset('assets/images/wordpress.png') }}" alt="WordPress" loading="lazy">
-            WordPress
+      <div class="col-lg-4 col-md-6 fade-up">
+        <div class="priority__card">
+          <div class="priority__icon">
+            <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
           </div>
-          <div class="cms__logo">
-            <img src="{{ asset('assets/images/installation.png') }}" alt="Joomla" loading="lazy">
-            Joomla
-          </div>
-          <div class="cms__logo">
-            <img src="{{ asset('assets/images/cloud.png') }}" alt="Drupal" loading="lazy">
-            Drupal
-          </div>
-          <div class="cms__logo">
-            <img src="{{ asset('assets/images/application.png') }}" alt="WooCommerce" loading="lazy">
-            WooCommerce
-          </div>
-          <div class="cms__logo">
-            <img src="{{ asset('assets/images/analyse.png') }}" alt="OpenCart" loading="lazy">
-            OpenCart
-          </div>
-          <div class="cms__logo">
-            <img src="{{ asset('assets/images/infrastructure.png') }}" alt="Magento" loading="lazy">
-            Magento
+          <div class="priority__title">Échelle et expertise éprouvées</div>
+          <div class="priority__desc">
+            Nous servons plus de <strong>860 clients</strong> en Côte d'Ivoire et en Afrique. Notre équipe gère
+            plus de <strong>551 sites hébergés</strong> et <strong>128 domaines enregistrés</strong>.
           </div>
         </div>
       </div>
 
-      {{-- Photo installation CMS --}}
-      <div class="cms__visual">
-        <img src="{{ asset('assets/images/installation.png') }}" alt="Installation CMS en 1 clic" loading="lazy">
-        <div class="cms__visual-overlay">
-          <span>Softaculous intégré</span>
-          <p>Votre CMS opérationnel<br>en moins de 2 minutes</p>
+      <div class="col-lg-4 col-md-6 fade-up fade-up-d1">
+        <div class="priority__card">
+          <div class="priority__icon">
+            <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </div>
+          <div class="priority__title">Assistance rapide et de qualité</div>
+          <div class="priority__desc">
+            Assistance dédiée et spécialisée 24h/24 et 7j/7 assurée par notre <strong>équipe d'experts</strong> avec une personne dédiée pour chaque client.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 fade-up fade-up-d2">
+        <div class="priority__card">
+          <div class="priority__icon">
+            <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div class="priority__title">Garantie de remboursement 30 jours</div>
+          <div class="priority__desc">
+            Vous n'êtes pas satisfait de votre achat ? Obtenez un <strong>remboursement intégral</strong>, sans aucune question posée dans les 30 jours.
+          </div>
         </div>
       </div>
 
@@ -820,28 +1268,89 @@
 </section>
 
 {{-- ================================================================
-     SPLIT — REVENDEUR / MUTUALISÉ
+     8. STATS + SUPPORT CHANNELS
 ================================================================ --}}
-<section class="split-section">
-  <div class="split-section__grid">
+<section class="w-section stats-section" aria-labelledby="stats-heading">
+  <div class="container">
 
-    <div class="split-card">
-      <img src="{{ asset('assets/images/reseller.png') }}" alt="Hébergement Revendeur" loading="lazy">
-      <div class="split-card__overlay">
-        <span class="split-card__tag">Idéal pour les webmasters</span>
-        <div class="split-card__title">Hébergement<br>Revendeur</div>
-        <p class="split-card__desc">Des outils simples et évolutifs pour une gestion centralisée. Interface personnalisable pour votre autonomie et crédibilité.</p>
-        <a href="{{ route('hebergement.commander') }}" class="split-card__btn">En savoir plus →</a>
+    <div class="text-center mb-5 fade-up">
+      <span class="w-tag w-tag--light">Nos chiffres</span>
+      <h2 class="w-heading w-heading--light" id="stats-heading">
+        Assistance rapide et de <em>qualité supérieure</em>
+      </h2>
+      <p class="w-sub w-sub--light" style="max-width:520px;margin:0 auto;">
+        Notre équipe d'assistance vous offre une aide et des conseils de premier ordre.
+      </p>
+    </div>
+
+    {{-- Stat boxes --}}
+    <div class="row g-3 mb-5">
+      <div class="col-md-4 fade-up">
+        <div class="stat-box stat-box--blue">
+          <div class="stat-box__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <div class="stat-box__num">10<span style="font-size:1.4rem;">s</span></div>
+          <div class="stat-box__label">Temps d'attente moyen<br>pour nos clients</div>
+        </div>
+      </div>
+      <div class="col-md-4 fade-up fade-up-d1">
+        <div class="stat-box stat-box--teal">
+          <div class="stat-box__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          </div>
+          <div class="stat-box__num">60<span style="font-size:1.4rem;">s</span></div>
+          <div class="stat-box__label">Temps de réponse<br>du chat en direct</div>
+        </div>
+      </div>
+      <div class="col-md-4 fade-up fade-up-d2">
+        <div class="stat-box stat-box--grey">
+          <div class="stat-box__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+          </div>
+          <div class="stat-box__num">4,65<span style="font-size:1.4rem;">/5</span></div>
+          <div class="stat-box__label">Score CSAT<br>satisfaction client</div>
+        </div>
       </div>
     </div>
 
-    <div class="split-card">
-      <img src="{{ asset('assets/images/mutualise.jpg') }}" alt="Hébergement Mutualisé" loading="lazy">
-      <div class="split-card__overlay">
-        <span class="split-card__tag">Idéal pour débutants</span>
-        <div class="split-card__title">Hébergement<br>Mutualisé</div>
-        <p class="split-card__desc">Fiabilité, performance et sécurité à prix accessible. Des hébergements conçus pour optimiser votre présence en ligne.</p>
-        <a href="{{ route('hebergement.mutualise') }}" class="split-card__btn">Voir les plans →</a>
+    {{-- Support channels --}}
+    <div class="row g-3">
+      <div class="col-lg-3 col-md-6 fade-up">
+        <div class="support-card">
+          <div class="support-card__icon">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          </div>
+          <div class="support-card__title">Chat en direct</div>
+          <div class="support-card__desc">Bénéficiez d'une assistance par chat 24h/24 et 7j/7 assurée par notre équipe d'experts.</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 fade-up fade-up-d1">
+        <div class="support-card">
+          <div class="support-card__icon">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="support-card__title">Courriel d'assistance</div>
+          <div class="support-card__desc">Envoyez-nous vos questions via le panneau ou à <a href="mailto:commercial@ticafrique.com" style="color:var(--pale);">commercial@ticafrique.com</a>.</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 fade-up fade-up-d2">
+        <div class="support-card">
+          <div class="support-card__icon">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
+          <div class="support-card__title">Contactez-nous</div>
+          <div class="support-card__desc"><a href="tel:+2252522002077" style="color:var(--pale);">(+225) 25 22 00 20 77</a><br>Disponible tous les jours</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 fade-up fade-up-d3">
+        <div class="support-card">
+          <div class="support-card__icon">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </div>
+          <div class="support-card__title">Centre d'assistance</div>
+          <div class="support-card__desc">Trouvez des réponses instantanément en consultant notre base de connaissances.</div>
+        </div>
       </div>
     </div>
 
@@ -849,48 +1358,64 @@
 </section>
 
 {{-- ================================================================
-     BLOC HÉBERGEMENT PRO (hebergementwebci.jpg)
+     9. SECURITY
 ================================================================ --}}
-<section class="tic-section" style="background:var(--grey);padding-top:60px;padding-bottom:60px;">
-  <div class="tic-container">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;">
+<section class="w-section security" aria-labelledby="security-heading">
+  <div class="container">
+    <div class="row g-5 align-items-center">
 
-      <div style="border-radius:20px;overflow:hidden;position:relative;">
-        <img src="{{ asset('assets/images/hebergement.jpg') }}"
-             alt="Hébergement web professionnel Côte d'Ivoire"
-             style="width:100%;height:320px;object-fit:cover;display:block;"
-             loading="lazy">
-        {{-- Badges superposés --}}
-        <div style="position:absolute;top:20px;left:20px;background:var(--orange);color:white;
-                    font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;
-                    text-transform:uppercase;letter-spacing:.08em;">
-          Disponible 99,99%
-        </div>
+      {{-- List --}}
+      <div class="col-lg-7 fade-up">
+        <span class="w-tag w-tag--blue">Sécurité avancée</span>
+        <h2 class="w-heading mb-4" id="security-heading">
+          Fonctions de sécurité<br><em>avancées</em>
+        </h2>
+        <p class="w-sub mb-4">
+          Nous proposons des fonctionnalités de sécurité d'hébergement web de pointe pour protéger votre site contre les menaces potentielles.
+        </p>
+
+        <ul class="security__list" role="list">
+          <li>
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <div class="text">
+              <strong>Certificats SSL/TLS gratuits</strong>
+              <span>Pour chiffrer le trafic de votre site et gagner la confiance de vos clients.</span>
+            </div>
+          </li>
+          <li>
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <div class="text">
+              <strong>Mises à jour et sauvegardes automatiques</strong>
+              <span>Pour protéger votre site contre les dangers imprévus en permanence.</span>
+            </div>
+          </li>
+          <li>
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+            <div class="text">
+              <strong>Cloudflare anti-DDoS</strong>
+              <span>Protège les serveurs de noms de domaine contre les attaques DDoS de grande envergure.</span>
+            </div>
+          </li>
+          <li>
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            <div class="text">
+              <strong>Surveillance des serveurs 24h/24 et 7j/7</strong>
+              <span>Pour la détection et la prévention précoces des menaces et incidents.</span>
+            </div>
+          </li>
+        </ul>
       </div>
 
-      <div>
-        <span class="tic-tag">Hébergement professionnel</span>
-        <h2 class="tic-heading">Tout ce qu'il faut<br>pour votre <em>site web</em></h2>
-        <p class="tic-subtext">Nos solutions d'hébergement web conviennent parfaitement à tous types de sites. Nous disposons de tout ce qu'il faut pour un webmaster pour optimiser la gestion de son site internet.</p>
-
-        <div style="display:flex;flex-direction:column;gap:10px;margin-top:24px;">
-          <div style="display:flex;align-items:center;gap:10px;font-size:.9rem;color:#2a3d5c;">
-            <img src="{{ asset('assets/images/hosting.png') }}" alt="" style="width:22px;height:22px;object-fit:contain;" loading="lazy">
-            Hébergement Web haute performance
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:.9rem;color:#2a3d5c;">
-            <img src="{{ asset('assets/images/reseller.png') }}" alt="" style="width:22px;height:22px;object-fit:contain;" loading="lazy">
-            Pack Revendeur avec WHM / cPanel
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:.9rem;color:#2a3d5c;">
-            <img src="{{ asset('assets/images/cloud.png') }}" alt="" style="width:22px;height:22px;object-fit:contain;" loading="lazy">
-            Serveur Cloud évolutif
+      {{-- Visual --}}
+      <div class="col-lg-5 fade-up fade-up-d1">
+        <div class="security__visual">
+          <img src="https://picsum.photos/seed/security-server/500/400"
+               alt="Sécurité hébergement TICAFRIQUE" loading="lazy">
+          <div class="security__visual-badge">
+            <strong>Protection maximale incluse</strong>
+            <span>SSL · DDoS · Sauvegardes · Pare-feu applicatif</span>
           </div>
         </div>
-
-        <a href="{{ route('hebergement.commander') }}" class="tic-btn tic-btn--primary" style="margin-top:28px;">
-          Acheter un pack maintenant
-        </a>
       </div>
 
     </div>
@@ -898,162 +1423,357 @@
 </section>
 
 {{-- ================================================================
-     FAQ
+     10. TESTIMONIALS
 ================================================================ --}}
-<section class="tic-section" style="background:white;">
-  <div class="tic-container" style="max-width:780px;">
-    <div style="text-align:center;">
-      <span class="tic-tag">FAQ</span>
-      <h2 class="tic-heading">Questions fréquentes</h2>
+<section class="w-section testimonials" aria-labelledby="testi-heading">
+  <div class="container">
+    <div class="text-center mb-5 fade-up">
+      <span class="w-tag w-tag--light">Témoignages</span>
+      <h2 class="w-heading w-heading--light" id="testi-heading">
+        Fournir de l'énergie à <em>nos clients</em>
+      </h2>
+      <p class="w-sub w-sub--light" style="max-width:500px;margin:0 auto;">
+        Ne vous fiez pas seulement à nos dires, voici ce que certains de nos clients ont à dire.
+      </p>
     </div>
 
-    <div class="faq__list" id="faq">
+    <div class="row g-4">
 
-      <div class="faq__item">
-        <button class="faq__question" onclick="toggleFaq(this)" aria-expanded="false">
-          Où sont basés vos serveurs ?
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+      <div class="col-lg-4 col-md-6 fade-up">
+        <div class="testi-card">
+          <div class="testi-card__quote" aria-hidden="true">"</div>
+          <div class="testi-card__stars" aria-label="5 étoiles">★★★★★</div>
+          <p class="testi-card__text">Au fil des ans, TICAFRIQUE a fait preuve d'une grande capacité d'innovation. Notre gamme de produits n'a cessé de s'étoffer, nous permettant d'offrir davantage de services et d'accroître nos sources de revenus.</p>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar">
+              <img src="https://picsum.photos/seed/client-a/88/88" alt="Client JustHostMe" loading="lazy">
+            </div>
+            <div>
+              <div class="testi-card__name">Konan A.</div>
+              <div class="testi-card__company">JustHostMe — Abidjan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 fade-up fade-up-d1">
+        <div class="testi-card">
+          <div class="testi-card__quote" aria-hidden="true">"</div>
+          <div class="testi-card__stars" aria-label="5 étoiles">★★★★★</div>
+          <p class="testi-card__text">Nous avions besoin de proposer davantage de solutions à nos clients. Après avoir testé les produits TICAFRIQUE, nous avons été impressionnés par leur nombre, leur qualité et leurs prix. Nous avons même migré notre site principal chez eux.</p>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar">
+              <img src="https://picsum.photos/seed/client-b/88/88" alt="Client Solutions Web" loading="lazy">
+            </div>
+            <div>
+              <div class="testi-card__name">Diabaté M.</div>
+              <div class="testi-card__company">Solutions Web Startec</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 fade-up fade-up-d2">
+        <div class="testi-card">
+          <div class="testi-card__quote" aria-hidden="true">"</div>
+          <div class="testi-card__stars" aria-label="5 étoiles">★★★★★</div>
+          <p class="testi-card__text">En ce qui concerne les services de TICAFRIQUE, le point le plus important à souligner est la qualité de leur assistance. Disponible 24h/24 et 7j/7, elle nous permet de maîtriser les attaques et de garantir notre politique de disponibilité.</p>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar">
+              <img src="https://picsum.photos/seed/client-c/88/88" alt="Client Solution Infinity" loading="lazy">
+            </div>
+            <div>
+              <div class="testi-card__name">Touré S.</div>
+              <div class="testi-card__company">Solution Infinity Pvt Ltd</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{{-- ================================================================
+     11. FAQ
+================================================================ --}}
+<section class="w-section faq" id="faq" aria-labelledby="faq-heading">
+  <div class="container" style="max-width:820px;">
+    <div class="text-center mb-5 fade-up">
+      <span class="w-tag w-tag--blue">FAQ</span>
+      <h2 class="w-heading" id="faq-heading">Foire aux questions</h2>
+    </div>
+
+    {{-- Category pills --}}
+    <div class="faq__cats fade-up" role="group" aria-label="Filtrer par catégorie">
+      <button class="faq__cat active" onclick="filterFaq(this,'all')">Tous</button>
+      <button class="faq__cat" onclick="filterFaq(this,'hebergement')">Hébergement</button>
+      <button class="faq__cat" onclick="filterFaq(this,'revendeur')">Programme revendeurs</button>
+      <button class="faq__cat" onclick="filterFaq(this,'facturation')">Facturation</button>
+      <button class="faq__cat" onclick="filterFaq(this,'assistance')">Assistance & migration</button>
+    </div>
+
+    <div class="faq__list fade-up" id="faq-accordion">
+
+      <div class="faq__item" data-cat="hebergement">
+        <button class="faq__q" onclick="toggleFaq(this)" aria-expanded="false">
+          Qu'est-ce que l'hébergement web ?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
         </button>
-        <div class="faq__answer">
-          <div class="faq__answer-inner">Nos serveurs sont répartis aux États-Unis, en Europe et en Inde, garantissant une latence optimale pour vos visiteurs africains et internationaux.</div>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            L'hébergement web est un service qui permet d'héberger des sites web pour ses clients et de les rendre accessibles sur Internet. Chez TICAFRIQUE, nos services offrent aux particuliers et aux PME une plateforme idéale pour développer leur activité en ligne grâce à une architecture de pointe et un support expert.
+          </div>
         </div>
       </div>
 
-      <div class="faq__item">
-        <button class="faq__question" onclick="toggleFaq(this)" aria-expanded="false">
-          En combien de temps le service est-il actif après commande ?
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+      <div class="faq__item" data-cat="hebergement">
+        <button class="faq__q" onclick="toggleFaq(this)" aria-expanded="false">
+          Pourquoi ai-je besoin d'un site web pour mon entreprise ?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
         </button>
-        <div class="faq__answer">
-          <div class="faq__answer-inner">Votre hébergement est activé instantanément dès confirmation du paiement. Vous recevez vos accès cPanel par email dans les minutes suivantes.</div>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Un site web permet à votre entreprise d'être visible 24h/24 sur Internet, d'atteindre de nouveaux clients, de renforcer votre crédibilité et de développer vos ventes en ligne. C'est un investissement indispensable pour toute entreprise moderne.
+          </div>
         </div>
       </div>
 
-      <div class="faq__item">
-        <button class="faq__question" onclick="toggleFaq(this)" aria-expanded="false">
+      <div class="faq__item" data-cat="hebergement">
+        <button class="faq__q" onclick="toggleFaq(this)" aria-expanded="false">
+          Quels sont les différents types d'hébergement web proposés ?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+        </button>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            TICAFRIQUE propose : l'hébergement mutualisé (idéal pour débuter), le VPS (plus de ressources dédiées), les serveurs dédiés (performances maximales), le Reseller hosting (pour les webmasters) et le Cloud (évolutivité totale).
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" data-cat="hebergement">
+        <button class="faq__q" onclick="toggleFaq(this)" aria-expanded="false">
+          En combien de temps mon hébergement est-il activé ?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+        </button>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Votre hébergement est activé instantanément dès confirmation du paiement. Vous recevez vos accès cPanel par email dans les minutes suivantes.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" data-cat="revendeur">
+        <button class="faq__q" onclick="toggleFaq(this)" aria-expanded="false">
+          TICAFRIQUE est-il avantageux pour les petites entreprises ?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+        </button>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Absolument. Nos plans mutualisés à partir de 54 000 FCFA/an sont spécialement conçus pour les PME et startups. Vous bénéficiez des mêmes garanties de fiabilité et de sécurité que les grands comptes, avec un budget maîtrisé.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" data-cat="facturation">
+        <button class="faq__q" onclick="toggleFaq(this)" aria-expanded="false">
+          Le choix de mon hébergement dépend-il de mon système d'exploitation ?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+        </button>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Non, votre système d'exploitation (Mac, Windows, Linux) n'influence pas votre choix d'hébergement. Nos plans fonctionnent avec tous les systèmes. Le choix dépend plutôt de votre type de site, du trafic attendu et de votre budget.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" data-cat="assistance">
+        <button class="faq__q" onclick="toggleFaq(this)" aria-expanded="false">
           Est-il possible de changer de plan après souscription ?
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
         </button>
-        <div class="faq__answer">
-          <div class="faq__answer-inner">Oui, vous pouvez upgrader vers un plan supérieur à tout moment depuis votre espace client, sans interruption de service.</div>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Oui, vous pouvez upgrader vers un plan supérieur à tout moment depuis votre espace client, sans interruption de service. Notre équipe vous accompagne dans la migration.
+          </div>
         </div>
       </div>
 
-      <div class="faq__item">
-        <button class="faq__question" onclick="toggleFaq(this)" aria-expanded="false">
+      <div class="faq__item" data-cat="facturation">
+        <button class="faq__q" onclick="toggleFaq(this)" aria-expanded="false">
           Proposez-vous une garantie satisfait ou remboursé ?
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
         </button>
-        <div class="faq__answer">
-          <div class="faq__answer-inner">Absolument. Si vous n'êtes pas satisfait dans les 30 jours suivant votre commande, nous vous remboursons intégralement sans aucune condition.</div>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Absolument. Si vous n'êtes pas satisfait dans les 30 jours suivant votre commande, nous vous remboursons intégralement, sans aucune condition.
+          </div>
         </div>
       </div>
 
-      <div class="faq__item">
-        <button class="faq__question" onclick="toggleFaq(this)" aria-expanded="false">
-          Quel type d'assistance proposez-vous à vos clients ?
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-        </button>
-        <div class="faq__answer">
-          <div class="faq__answer-inner">Notre support technique est disponible 24h/7j via ticketing et chat. Chaque client dispose d'un interlocuteur dédié pour des solutions personnalisées.</div>
-        </div>
-      </div>
-
-    </div>
+    </div>{{-- /accordion --}}
   </div>
 </section>
 
 {{-- ================================================================
-     CTA BANNER
+     12. CTA BANNER
 ================================================================ --}}
-<section class="tic-section" style="background:var(--grey);padding-top:0;">
-  <div class="tic-container">
-    <div class="cta-banner">
-      <div style="position:relative;z-index:1;">
+<section class="w-section w-section--grey" style="padding-top:0;">
+  <div class="container">
+    <div class="cta-banner fade-up">
+      <div>
         <div class="cta-banner__title">Prêt à lancer votre site web ?</div>
         <div class="cta-banner__sub">Démarrez dès aujourd'hui avec un plan adapté à votre budget.</div>
       </div>
-      <a href="{{ route('hebergement.commander') }}" class="cta-banner__btn">
-        Choisir mon hébergement →
-      </a>
+      <div class="cta-banner__actions">
+        <a href="{{ route('hebergement.commander') }}" class="w-btn w-btn--primary">
+          Choisir mon hébergement
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://wa.me/22522002077" target="_blank" rel="noopener" class="w-btn w-btn--outline">
+          Nous contacter
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
 {{-- ================================================================
-     INLINE JS — no jQuery dependency
+     VANILLA JS — Interactions
 ================================================================ --}}
 <script>
-  /* ── Hero plan switcher ── */
-  const commanderUrl = "{{ route('hebergement.commander') }}";
-  const plans = {
-    presence: {
-      price: '54 000',
-      feats: ['100 Go d\'espace disque','100 comptes email POP','Bande passante 1 000 Go','cPanel + 3 bases de données','Remboursé sous 30 jours']
-    },
-    confort: {
-      price: '90 000',
-      feats: ['300 Go d\'espace disque','300 comptes email POP','Bande passante 3 000 Go','cPanel + 10 bases de données','Multi-domaines (3)']
-    },
-    prestige: {
-      price: '102 000',
-      feats: ['750 Go d\'espace disque','Emails illimités','Bande passante illimitée','cPanel + 20 bases de données','10 domaines hébergeables']
+(function () {
+  'use strict';
+
+  /* ── 1. IntersectionObserver — Fade-up on scroll ── */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+  /* ── 2. Smooth scroll for anchor links ── */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  /* ── 3. Services tab switcher ── */
+  window.switchTab = function (clickedBtn, panelId) {
+    // Update tab buttons
+    document.querySelectorAll('.services__tab').forEach(btn => {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-selected', 'false');
+    });
+    clickedBtn.classList.add('active');
+    clickedBtn.setAttribute('aria-selected', 'true');
+
+    // Show matching panel
+    document.querySelectorAll('.services__panel').forEach(panel => {
+      panel.classList.remove('active');
+    });
+    const target = document.getElementById(panelId);
+    if (target) {
+      target.classList.add('active');
+      // Re-trigger fade-ups in the new panel
+      target.querySelectorAll('.fade-up').forEach(el => {
+        el.classList.remove('visible');
+        setTimeout(() => el.classList.add('visible'), 30);
+      });
     }
   };
 
-  function switchHeroPlan(btn, plan) {
-    document.querySelectorAll('.hero__card-tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    const p = plans[plan];
-    document.getElementById('hero-price').innerHTML = `<sup>FCFA </sup>${p.price}<sub>/an</sub>`;
-    document.getElementById('hero-feats').innerHTML = p.feats.map(f => `
-      <div class="hero__card-feat">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-        ${f}
-      </div>`).join('');
-    document.getElementById('hero-cta').href = commanderUrl;
-  }
-
-  /* ── FAQ accordion ── */
-  function toggleFaq(btn) {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
+  /* ── 4. FAQ accordion ── */
+  window.toggleFaq = function (btn) {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
     // Close all
-    document.querySelectorAll('.faq__question').forEach(q => {
+    document.querySelectorAll('.faq__q').forEach(q => {
       q.setAttribute('aria-expanded', 'false');
       q.nextElementSibling.classList.remove('open');
     });
     // Open clicked if it was closed
-    if (!expanded) {
+    if (!isOpen) {
       btn.setAttribute('aria-expanded', 'true');
       btn.nextElementSibling.classList.add('open');
     }
-  }
+  };
 
-  /* ── Extension chip toggle ── */
-  document.querySelectorAll('.ext-chip').forEach(chip => {
-    chip.addEventListener('click', () => chip.classList.toggle('active'));
-  });
+  /* ── 5. FAQ category filter ── */
+  window.filterFaq = function (clickedBtn, cat) {
+    document.querySelectorAll('.faq__cat').forEach(b => b.classList.remove('active'));
+    clickedBtn.classList.add('active');
 
-  /* ── Domain search redirect (placeholder — adapt to backend route) ── */
-  function searchDomain() {
-    const q = document.getElementById('domain-input').value.trim();
-    if (!q) { document.getElementById('domain-input').focus(); return; }
-    const exts = [...document.querySelectorAll('.ext-chip.active')].map(c => c.dataset.ext).join(',');
-    // Replace with your actual search endpoint
-    window.location.href = `/domaine/search?q=${encodeURIComponent(q)}&exts=${encodeURIComponent(exts)}`;
-  }
-
-  document.getElementById('domain-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') searchDomain();
-  });
-
-  /* ── Smooth scroll for anchor links ── */
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    // Close all open answers first
+    document.querySelectorAll('.faq__q').forEach(q => {
+      q.setAttribute('aria-expanded', 'false');
+      q.nextElementSibling.classList.remove('open');
     });
+
+    document.querySelectorAll('.faq__item').forEach(item => {
+      if (cat === 'all' || item.dataset.cat === cat) {
+        item.style.display = '';
+        // Micro animation
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(10px)';
+        setTimeout(() => {
+          item.style.transition = 'opacity .3s ease, transform .3s ease';
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }, 20);
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  };
+
+  /* ── 6. Button scale hover (CSS handles :hover, this adds touch feedback) ── */
+  document.querySelectorAll('.w-btn, .price-card, .feat-card, .priority__card').forEach(el => {
+    el.addEventListener('pointerdown', () => el.style.transform = 'scale(0.97)');
+    el.addEventListener('pointerup',   () => el.style.transform = '');
+    el.addEventListener('pointerleave',() => el.style.transform = '');
   });
+
+  /* ── 7. Counter animation for stat numbers ── */
+  const statEls = document.querySelectorAll('.stat-box__num');
+  const counterIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const text = el.textContent.trim();
+      const match = text.match(/^([\d.,]+)/);
+      if (!match) return;
+      const target = parseFloat(match[1].replace(',','.'));
+      const suffix = text.replace(match[0],'');
+      let start = 0;
+      const duration = 1600;
+      const startTime = performance.now();
+      const step = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = eased * target;
+        const display = Number.isInteger(target) ? Math.round(current) : current.toFixed(2).replace('.',',');
+        el.textContent = display + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      counterIo.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+
+  statEls.forEach(el => counterIo.observe(el));
+
+}());
 </script>
 
 @endsection
