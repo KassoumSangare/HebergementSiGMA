@@ -97,7 +97,7 @@
   }
   .hero__bg {
     position: absolute; inset: 0;
-    background-image: url('https://picsum.photos/seed/server1/1400/900');
+    background-image: url('{{ asset("assets/images/hebergement.jpg") }}');
     background-size: cover; background-position: center;
     opacity: .08; pointer-events: none;
   }
@@ -583,7 +583,7 @@
           <div class="lbl">Disponibilité<br>garantie</div>
         </div>
         <div class="hero__img-wrap">
-          <img src="https://picsum.photos/seed/hero-web/700/440"
+          <img src="{{ asset('assets/images/hebergement.jpg') }}"
                alt="Hébergement web professionnel TICAFRIQUE"
                loading="eager">
           <div class="hero__img-badge">
@@ -683,7 +683,7 @@
               </p>
             </div>
             <div class="expert-col__img">
-              <img src="https://picsum.photos/seed/support-team/380/180" alt="Équipe support TICAFRIQUE" loading="lazy">
+              <img src="{{ asset('assets/images/support.png') }}" alt="Équipe support TICAFRIQUE" loading="lazy">
             </div>
             <a href="https://wa.me/22522002077" target="_blank" rel="noopener" class="w-btn w-btn--outline" style="width:100%;justify-content:center;">
               <svg width="15" height="15" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326z"/></svg>
@@ -1009,7 +1009,7 @@
       <div class="col-md-4 fade-up">
         <div class="step-card">
           <div class="step-card__num" aria-label="Étape 1">1</div>
-          <img src="https://picsum.photos/seed/step-hosting/240/240"
+          <img src="{{ asset('assets/images/hosting.png') }}"
                alt="Choisir un forfait d'hébergement" class="step-card__img" loading="lazy">
           <h3 class="step-card__title">Choisissez un forfait<br>d'hébergement adapté</h3>
           <p class="step-card__desc">Choisissez le forfait adapté à vos besoins. Besoin d'aide ? Contactez nos experts en hébergement.</p>
@@ -1027,7 +1027,7 @@
       <div class="col-md-4 fade-up fade-up-d2">
         <div class="step-card">
           <div class="step-card__num" aria-label="Étape 2">2</div>
-          <img src="https://picsum.photos/seed/step-domain/240/240"
+          <img src="{{ asset('assets/images/domaine.png') }}"
                alt="Rechercher un nom de domaine" class="step-card__img" loading="lazy">
           <h3 class="step-card__title">Rechercher et acheter<br>un nom de domaine</h3>
           <p class="step-card__desc">Choisissez un nom de domaine simple, mémorable et qui laisse une impression durable.</p>
@@ -1045,7 +1045,7 @@
       <div class="col-md-4 fade-up fade-up-d4">
         <div class="step-card">
           <div class="step-card__num" aria-label="Étape 3">3</div>
-          <img src="https://picsum.photos/seed/step-launch/240/240"
+          <img src="{{ asset('assets/images/installation.png') }}"
                alt="Mettre en ligne son site web" class="step-card__img" loading="lazy">
           <h3 class="step-card__title">Téléchargez les données<br>de votre site web</h3>
           <p class="step-card__desc">Téléchargez vos fichiers ou créez un site via WordPress. Configurez vos DNS et mettez votre site en ligne.</p>
@@ -1074,7 +1074,7 @@
       {{-- Image --}}
       <div class="col-lg-5 fade-up">
         <div class="perf__img-wrap">
-          <img src="https://picsum.photos/seed/server-data/600/420"
+          <img src="{{ asset('assets/images/server.png') }}"
                alt="Performances d'hébergement cloud TICAFRIQUE" loading="lazy">
           <div class="perf__img-overlay" aria-hidden="true"></div>
         </div>
@@ -1409,7 +1409,7 @@
       {{-- Visual --}}
       <div class="col-lg-5 fade-up fade-up-d1">
         <div class="security__visual">
-          <img src="https://picsum.photos/seed/security-server/500/400"
+          <img src="{{ asset('assets/images/infrastructure.png') }}"
                alt="Sécurité hébergement TICAFRIQUE" loading="lazy">
           <div class="security__visual-badge">
             <strong>Protection maximale incluse</strong>
@@ -1446,7 +1446,7 @@
           <p class="testi-card__text">Au fil des ans, TICAFRIQUE a fait preuve d'une grande capacité d'innovation. Notre gamme de produits n'a cessé de s'étoffer, nous permettant d'offrir davantage de services et d'accroître nos sources de revenus.</p>
           <div class="testi-card__author">
             <div class="testi-card__avatar">
-              <img src="https://picsum.photos/seed/client-a/88/88" alt="Client JustHostMe" loading="lazy">
+              <img src="{{ asset('assets/images/logoweb.jpg') }}" alt="Client JustHostMe" loading="lazy">
             </div>
             <div>
               <div class="testi-card__name">Konan A.</div>
@@ -1463,7 +1463,7 @@
           <p class="testi-card__text">Nous avions besoin de proposer davantage de solutions à nos clients. Après avoir testé les produits TICAFRIQUE, nous avons été impressionnés par leur nombre, leur qualité et leurs prix. Nous avons même migré notre site principal chez eux.</p>
           <div class="testi-card__author">
             <div class="testi-card__avatar">
-              <img src="https://picsum.photos/seed/client-b/88/88" alt="Client Solutions Web" loading="lazy">
+              <img src="{{ asset('assets/images/logoweb.jpg') }}" alt="Client Solutions Web" loading="lazy">
             </div>
             <div>
               <div class="testi-card__name">Diabaté M.</div>
@@ -1480,7 +1480,7 @@
           <p class="testi-card__text">En ce qui concerne les services de TICAFRIQUE, le point le plus important à souligner est la qualité de leur assistance. Disponible 24h/24 et 7j/7, elle nous permet de maîtriser les attaques et de garantir notre politique de disponibilité.</p>
           <div class="testi-card__author">
             <div class="testi-card__avatar">
-              <img src="https://picsum.photos/seed/client-c/88/88" alt="Client Solution Infinity" loading="lazy">
+              <img src="{{ asset('assets/images/logoweb.jpg') }}" alt="Client Solution Infinity" loading="lazy">
             </div>
             <div>
               <div class="testi-card__name">Touré S.</div>
